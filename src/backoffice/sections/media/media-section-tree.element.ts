@@ -1,9 +1,8 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, state, property } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { data } from '../../../mocks/data/node.data';
 import { UmbContextConsumerMixin } from 'umbraco/context';
-import { UmbNodeStore } from '../../../core/stores/node.store';
+import { UmbNodeStore } from 'umbraco/stores';
 import { map, Subscription } from 'rxjs';
 
 @customElement('umb-media-section-tree')

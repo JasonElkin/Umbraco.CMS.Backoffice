@@ -23,7 +23,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "umbraco/context": ["packages/context/index.ts"]
+      "umbraco/context": ["packages/context/index.ts"],
+      "umbraco/stores": ["packages/stores/index.ts"]
     }
   },
   "include": [

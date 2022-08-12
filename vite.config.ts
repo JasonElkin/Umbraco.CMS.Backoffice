@@ -11,6 +11,7 @@ export default defineConfig({
 			{
 				imports: {
 					'umbraco/context': '/context/index.js',
+					'umbraco/stores': '/stores/index.js',
 				},
 			},
 		]),

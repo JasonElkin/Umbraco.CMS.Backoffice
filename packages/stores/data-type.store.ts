@@ -1,5 +1,5 @@
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { DataTypeEntity, umbDataTypeData } from '../../mocks/data/data-type.data';
+import { DataTypeEntity, umbDataTypeData } from '../../src/mocks/data/data-type.data';
 
 export class UmbDataTypeStore {
 	private _dataTypes: BehaviorSubject<Array<DataTypeEntity>> = new BehaviorSubject(<Array<DataTypeEntity>>[]);

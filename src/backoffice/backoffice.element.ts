@@ -5,9 +5,7 @@ import { css, html, LitElement } from 'lit';
 import { UmbContextProviderMixin } from 'umbraco/context';
 import { UmbNotificationService } from '../core/services/notification';
 import { UmbModalService } from '../core/services/modal';
-import { UmbDataTypeStore } from '../core/stores/data-type.store';
-import { UmbDocumentTypeStore } from '../core/stores/document-type.store';
-import { UmbNodeStore } from '../core/stores/node.store';
+import { UmbDataTypeStore, UmbDocumentTypeStore, UmbNodeStore } from 'umbraco/stores';
 
 import './components/backoffice-header.element';
 import './components/backoffice-main.element';

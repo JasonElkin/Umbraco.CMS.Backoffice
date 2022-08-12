@@ -3,7 +3,7 @@ import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { UUIInputElement, UUIInputEvent } from '@umbraco-ui/uui';
 import { UmbContextConsumerMixin, UmbContextProviderMixin } from 'umbraco/context';
-import { UmbNodeStore } from '../../../../core/stores/node.store';
+import { UmbNodeStore } from 'umbraco/stores';
 import { distinctUntilChanged, Subscription } from 'rxjs';
 import { NodeEntity } from '../../../../mocks/data/node.data';
 import type { UmbNotificationService } from '../../../../core/services/notification';
