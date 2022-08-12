@@ -20,11 +20,16 @@
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "umbraco/context": ["packages/context/index.ts"]
+    }
   },
   "include": [
     "src/**/*.ts",
 		"e2e/**/*.ts",
+    "packages/**/*.ts",
   ],
   "references": [
     {
