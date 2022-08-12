@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { UmbContextConsumerMixin } from '../../../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import type { DataTypeEntity } from '../../../../mocks/data/data-type.data';
 import type { UmbExtensionManifestPropertyEditorUI, UmbExtensionRegistry } from '../../../../core/extension';
 import { Subscription, distinctUntilChanged } from 'rxjs';

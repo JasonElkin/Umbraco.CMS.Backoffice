@@ -3,7 +3,7 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { Subscription, distinctUntilChanged } from 'rxjs';
-import { UmbContextProviderMixin, UmbContextConsumerMixin } from '../../../core/context';
+import { UmbContextProviderMixin, UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbNotificationService } from '../../../core/services/notification';
 import { UmbDataTypeStore } from '../../../core/stores/data-type.store';
 import { DataTypeEntity } from '../../../mocks/data/data-type.data';

@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { IRoute, IRoutingInfo } from 'router-slot';
-import { UmbContextConsumerMixin } from '../../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 
 import './settings-section-tree.element';
 @customElement('umb-settings-section')

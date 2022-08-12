@@ -1,6 +1,6 @@
 import '../../../backoffice/components/backoffice-modal-container.element';
 import '../../../core/services/modal/layouts/content-picker/modal-layout-content-picker.element';
-import '../../context/context-provider.element';
+import '../../../../packages/context/context-provider.element';
 import '../../../backoffice/editors/shared/editor-layout/editor-layout.element';
 
 import '@umbraco-ui/uui-modal';
@@ -11,7 +11,7 @@ import '@umbraco-ui/uui-modal-dialog';
 import { Meta, Story } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { customElement, property, state } from 'lit/decorators.js';
-import { UmbContextConsumerMixin } from '../../context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { LitElement } from 'lit';
 import { UmbModalService } from './';
 

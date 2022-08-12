@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { Subscription } from 'rxjs';
-import { UmbContextConsumerMixin } from '../../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbExtensionManifest, UmbExtensionRegistry } from '../../../core/extension';
 
 import '../shared/editor-entity/editor-entity.element';

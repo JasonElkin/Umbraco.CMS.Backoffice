@@ -4,7 +4,7 @@ import { css, html, LitElement } from 'lit';
 import { state } from 'lit/decorators.js';
 import { map, Subscription } from 'rxjs';
 
-import { UmbContextConsumerMixin } from '../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { createExtensionElement, UmbExtensionManifestSection, UmbExtensionRegistry } from '../../core/extension';
 
 @defineElement('umb-backoffice-main')

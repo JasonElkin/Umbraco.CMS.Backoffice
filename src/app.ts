@@ -7,7 +7,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { Guard, IRoute } from 'router-slot/model';
 
 import { getServerStatus } from './core/api/fetcher';
-import { UmbContextProviderMixin } from './core/context';
+import { UmbContextProviderMixin } from 'umbraco/context';
 import { UmbExtensionManifest, UmbExtensionManifestCore, UmbExtensionRegistry } from './core/extension';
 import { ServerStatus } from './core/models';
 import { internalManifests } from './temp-internal-manifests';

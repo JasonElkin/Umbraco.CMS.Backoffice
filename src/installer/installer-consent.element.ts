@@ -3,7 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { Subscription } from 'rxjs';
 
-import { UmbContextConsumerMixin } from '../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { TelemetryModel } from '../core/models';
 import { UmbInstallerContext } from './installer-context';
 

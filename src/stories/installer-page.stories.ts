@@ -1,4 +1,4 @@
-import '../core/context/context-provider.element';
+import '../../packages/context/context-provider.element';
 import '../installer/installer.element';
 
 import { Meta } from '@storybook/web-components';

@@ -2,7 +2,7 @@ import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
 
-import { UmbContextProviderMixin } from '../core/context';
+import { UmbContextProviderMixin } from 'umbraco/context';
 import { UmbNotificationService } from '../core/services/notification';
 import { UmbModalService } from '../core/services/modal';
 import { UmbDataTypeStore } from '../core/stores/data-type.store';

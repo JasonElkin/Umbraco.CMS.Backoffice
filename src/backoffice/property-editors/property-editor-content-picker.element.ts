@@ -2,7 +2,7 @@ import { css, html, LitElement } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, state } from 'lit/decorators.js';
 
-import { UmbContextConsumerMixin } from '../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbModalService } from '../../core/services/modal';
 
 // TODO: remove these imports when they are part of UUI

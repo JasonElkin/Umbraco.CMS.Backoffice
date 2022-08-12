@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { UmbContextConsumerMixin } from '../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbPropertyActionMenuContext } from './property-action-menu/property-action-menu.context';
 import { UmbPropertyAction } from './property-action/property-action.model';
 

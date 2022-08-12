@@ -3,9 +3,9 @@ import { LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { UmbNotificationService, UmbNotificationOptions, UmbNotificationColor } from '.';
 import type { UmbNotificationDefaultData } from './layouts/default';
-import { UmbContextConsumerMixin } from '../../context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 
-import '../../context/context-provider.element';
+import '../../../../packages/context/context-provider.element';
 import '../../../backoffice/components/backoffice-notification-container.element';
 import './layouts/default';
 

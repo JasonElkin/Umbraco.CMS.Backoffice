@@ -6,7 +6,7 @@ import { isPathActive, path } from 'router-slot';
 import { map, Subscription } from 'rxjs';
 
 import { getUserSections } from '../../core/api/fetcher';
-import { UmbContextConsumerMixin } from '../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbExtensionManifestSection, UmbExtensionRegistry } from '../../core/extension';
 
 @customElement('umb-backoffice-header-sections')

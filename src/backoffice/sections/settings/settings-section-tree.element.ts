@@ -3,7 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { data as dataTypeData } from '../../../mocks/data/data-type.data';
 import { data as documentTypeData } from '../../../mocks/data/document-type.data';
-import { UmbContextConsumerMixin } from '../../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbDataTypeStore } from '../../../core/stores/data-type.store';
 import { Subscription } from 'rxjs';
 import { UmbDocumentTypeStore } from '../../../core/stores/document-type.store';

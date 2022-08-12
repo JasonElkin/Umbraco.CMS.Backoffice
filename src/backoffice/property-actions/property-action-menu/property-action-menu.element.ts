@@ -2,7 +2,7 @@ import { UUITextStyles } from '@umbraco-ui/uui';
 import { css, CSSResultGroup, html, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { Subscription, map } from 'rxjs';
-import { UmbContextProviderMixin, UmbContextConsumerMixin } from '../../../core/context';
+import { UmbContextProviderMixin, UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbExtensionManifestPropertyAction, UmbExtensionRegistry } from '../../../core/extension';
 import { UmbPropertyActionMenuContext } from './property-action-menu.context';
 

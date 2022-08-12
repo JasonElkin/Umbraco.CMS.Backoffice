@@ -2,7 +2,7 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { UUIInputElement, UUIInputEvent } from '@umbraco-ui/uui';
-import { UmbContextConsumerMixin, UmbContextProviderMixin } from '../../../../core/context';
+import { UmbContextConsumerMixin, UmbContextProviderMixin } from 'umbraco/context';
 import { UmbNodeStore } from '../../../../core/stores/node.store';
 import { distinctUntilChanged, Subscription } from 'rxjs';
 import { NodeEntity } from '../../../../mocks/data/node.data';

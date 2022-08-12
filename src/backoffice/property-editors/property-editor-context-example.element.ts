@@ -1,6 +1,6 @@
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { UmbContextConsumerMixin } from '../../core/context';
+import { UmbContextConsumerMixin } from 'umbraco/context';
 import type { UmbNotificationDefaultData } from '../../core/services/notification/layouts/default';
 import type { UmbNotificationService } from '../../core/services/notification';
 

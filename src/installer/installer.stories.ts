@@ -1,4 +1,4 @@
-import '../core/context/context-provider.element';
+import '../../packages/context/context-provider.element';
 import './installer-consent.element';
 import './installer-database.element';
 import './installer-installing.element';
