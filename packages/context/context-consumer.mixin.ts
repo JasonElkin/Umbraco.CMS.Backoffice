@@ -1,4 +1,4 @@
-import { HTMLElementConstructor } from '../models';
+import { HTMLElementConstructor } from '../../src/core/models';
 import { UmbContextConsumer } from './context-consumer';
 
 export declare class UmbContextConsumerInterface {
