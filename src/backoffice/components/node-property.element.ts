@@ -59,7 +59,6 @@ class UmbNodeProperty extends UmbContextConsumerMixin(LitElement) {
 	constructor() {
 		super();
 
-		/** TODO: Use DI for these types of services. */
 		this.consumeContext('umbDataTypeStore', (_instance: UmbDataTypeStore) => {
 			this._dataTypeStore = _instance;
 			this._useDataType();
