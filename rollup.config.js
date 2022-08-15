@@ -1,18 +1,14 @@
 import esbuild from 'rollup-plugin-esbuild';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-
-const packageNames = ['context', 'stores'];
-
-const createPackageConfig = (name) => {
-	return {
-		input: `packages/${name}/index.ts`,
-		output: {
-			file: `public/${name}/index.js`,
-			format: 'es',
-		},
-		plugins: [nodeResolve(), esbuild({ minify: true })],
-	};
-};
+//import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 // TODO: Temp rollup config until we figure out how to build it with Vite
-export default packageNames.map((name) => createPackageConfig(name));
+export default [
+	{
+		input: 'packages/context/index.ts',
+		output: {
+			file: 'public/context/index.js',
+			format: 'es',
+		},
+		plugins: [esbuild()],
+	},
+];

@@ -1,5 +1,5 @@
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { NodeEntity, umbNodeData } from '../../src/mocks/data/node.data';
+import { NodeEntity, umbNodeData } from '../../mocks/data/node.data';
 
 export class UmbNodeStore {
 	private _nodes: BehaviorSubject<Array<NodeEntity>> = new BehaviorSubject(<Array<NodeEntity>>[]);

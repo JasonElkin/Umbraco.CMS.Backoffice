@@ -5,7 +5,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import { Subscription, distinctUntilChanged } from 'rxjs';
 import { UmbContextProviderMixin, UmbContextConsumerMixin } from 'umbraco/context';
 import { UmbNotificationService } from '../../../core/services/notification';
-import { UmbDataTypeStore } from 'umbraco/stores';
+import { UmbDataTypeStore } from '../../../core/stores/data-type.store';
 import { DataTypeEntity } from '../../../mocks/data/data-type.data';
 import { UmbDataTypeContext } from './data-type.context';
 

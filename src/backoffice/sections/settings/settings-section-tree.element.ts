@@ -4,9 +4,9 @@ import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { data as dataTypeData } from '../../../mocks/data/data-type.data';
 import { data as documentTypeData } from '../../../mocks/data/document-type.data';
 import { UmbContextConsumerMixin } from 'umbraco/context';
-import { UmbDataTypeStore } from '../../../../packages/stores/data-type.store';
+import { UmbDataTypeStore } from '../../../core/stores/data-type.store';
 import { Subscription } from 'rxjs';
-import { UmbDocumentTypeStore } from '../../../../packages/stores/document-type.store';
+import { UmbDocumentTypeStore } from '../../../core/stores/document-type.store';
 
 @customElement('umb-settings-section-tree')
 class UmbSettingsSectionTree extends UmbContextConsumerMixin(LitElement) {
