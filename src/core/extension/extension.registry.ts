@@ -14,6 +14,10 @@ export type UmbExtensionManifestBase = {
 };
 
 // Core manifest types:
+// Start Up:
+export type UmbExtensionManifestStartUp = {
+	type: 'startUp';
+} & UmbExtensionManifestBase;
 
 // Section:
 export type UmbManifestSectionMeta = {
@@ -72,6 +76,7 @@ export type UmbExtensionManifestEditorView = {
 } & UmbExtensionManifestBase;
 
 export type UmbExtensionManifestCore =
+	| UmbExtensionManifestStartUp
 	| UmbExtensionManifestSection
 	| UmbExtensionManifestDashboard
 	| UmbExtensionManifestPropertyEditorUI
@@ -113,6 +118,7 @@ export class UmbExtensionRegistry {
 	// TODO: implement unregister of extension
 
 	// Typings concept, need to put all core types to get a good array return type for the provided type...
+	extensionsOfType(type: 'startUp'): Observable<Array<UmbExtensionManifestStartUp>>;
 	extensionsOfType(type: 'section'): Observable<Array<UmbExtensionManifestSection>>;
 	extensionsOfType(type: 'dashboard'): Observable<Array<UmbExtensionManifestDashboard>>;
 	extensionsOfType(type: 'editorView'): Observable<Array<UmbExtensionManifestEditorView>>;

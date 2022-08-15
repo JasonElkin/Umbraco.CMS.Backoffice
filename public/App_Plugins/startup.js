@@ -10,7 +10,7 @@ const registerExtensions = (registry) => {
 	registry.register({
 		type: 'section',
 		alias: 'My.Section.Custom',
-		name: 'Lazy Custom Section',
+		name: 'Custom Section',
 		js: '/App_Plugins/section.js',
 		elementName: 'my-section-custom',
 		meta: {
