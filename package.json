@@ -16,7 +16,8 @@
 		"url": "https://umbraco.com"
 	},
 	"scripts": {
-		"dev": "vite",
+		"dev": "concurrently \"npm:dev:backoffice\" \"npm:dev:packages\"",
+		"dev:backoffice": "vite",
 		"dev:packages": "rollup -c -w",
 		"build": "tsc && build:packages && vite build --mode staging",
 		"build:production": "tsc && build:packages && vite build",
@@ -71,6 +72,7 @@
 		"@web/test-runner": "^0.14.0",
 		"@web/test-runner-playwright": "^0.8.9",
 		"babel-loader": "^8.2.5",
+		"concurrently": "^7.3.0",
 		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-import-resolver-typescript": "^3.4.0",
@@ -87,6 +89,7 @@
 		"rollup-plugin-esbuild": "^4.9.1",
 		"typescript": "^4.7.4",
 		"vite": "2.9.0",
+		"vite-plugin-full-reload": "^1.0.4",
 		"vite-plugin-import-maps": "^0.1.2"
 	},
 	"msw": {
