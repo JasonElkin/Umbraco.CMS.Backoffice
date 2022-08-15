@@ -17,8 +17,8 @@
 	},
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc && vite build --mode staging",
-		"build:production": "tsc && vite build",
+		"build": "tsc && build:packages && vite build --mode staging",
+		"build:production": "tsc && build:packages && vite build",
 		"preview": "vite preview --open",
 		"test": "web-test-runner --coverage",
 		"test:watch": "web-test-runner --watch",
