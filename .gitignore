@@ -35,3 +35,6 @@ types
 
 # storybook
 storybook-static/
+
+# Packages
+public/context/*
