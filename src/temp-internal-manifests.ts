@@ -192,4 +192,10 @@ export const internalManifests: Array<UmbExtensionManifestCore> = [
 			group: 'common',
 		},
 	},
+	{
+		type: 'startUp',
+		alias: 'My.StartUp.Custom',
+		name: 'My Start Up',
+		js: '/App_Plugins/startup.js',
+	},
 ];

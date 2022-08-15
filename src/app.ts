@@ -4,11 +4,12 @@ import 'router-slot';
 import { UUIIconRegistryEssential } from '@umbraco-ui/uui';
 import { css, html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import { firstValueFrom } from 'rxjs';
 import { Guard, IRoute } from 'router-slot/model';
 
 import { getServerStatus } from './core/api/fetcher';
 import { UmbContextProviderMixin } from 'umbraco/context';
-import { UmbExtensionManifest, UmbExtensionManifestCore, UmbExtensionRegistry } from './core/extension';
+import { UmbExtensionManifest, UmbExtensionManifestCore, UmbExtensionRegistry, loadScript } from './core/extension';
 import { ServerStatus } from './core/models';
 import { internalManifests } from './temp-internal-manifests';
 
@@ -64,6 +65,7 @@ export class UmbApp extends UmbContextProviderMixin(LitElement) {
 
 		await this._registerExtensionManifestsFromServer();
 		await this._registerInternalManifests();
+		await this._runStartupExtensions();
 		await this._setInitStatus();
 		this._redirect();
 	}
@@ -131,6 +133,20 @@ export class UmbApp extends UmbContextProviderMixin(LitElement) {
 		internalManifests.forEach((manifest: UmbExtensionManifestCore) =>
 			this._extensionRegistry.register<UmbExtensionManifestCore>(manifest)
 		);
+	}
+
+	private async _runStartupExtensions() {
+		const extensions = await firstValueFrom(this._extensionRegistry.extensions);
+		const startUpExtensions = extensions.filter((extension) => extension.type === 'startUp');
+		const results: Array<Promise<any>> = [];
+
+		for (const extension of startUpExtensions) {
+			if (typeof extension.js === 'string') {
+				results.push(loadScript(extension.js));
+			}
+		}
+
+		await Promise.all(results);
 	}
 
 	render() {
