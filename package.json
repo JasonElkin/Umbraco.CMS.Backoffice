@@ -17,6 +17,7 @@
 	},
 	"scripts": {
 		"dev": "vite",
+		"dev:packages": "rollup -c -w",
 		"build": "tsc && build:packages && vite build --mode staging",
 		"build:production": "tsc && build:packages && vite build",
 		"preview": "vite preview --open",
