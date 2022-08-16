@@ -146,7 +146,15 @@ export class UmbApp extends UmbContextProviderMixin(LitElement) {
 			}
 		}
 
-		await Promise.all(results);
+		await Promise.all(results).then(
+			() => {
+				console.log('Startup extensions loaded');
+			},
+			(error) => {
+				// TODO: handle
+				console.log(error);
+			}
+		);
 	}
 
 	render() {
