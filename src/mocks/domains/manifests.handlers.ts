@@ -10,17 +10,6 @@ export const handlers = [
 			ctx.json({
 				manifests: [
 					{
-						type: 'section',
-						alias: 'My.Section.Custom',
-						name: 'Custom Section',
-						js: '/App_Plugins/section.js',
-						elementName: 'my-section-custom',
-						meta: {
-							pathname: 'my-custom',
-							weight: 1,
-						},
-					},
-					{
 						type: 'propertyEditorUI',
 						alias: 'My.PropertyEditorUI.Custom',
 						name: 'My Custom Property Editor UI',
