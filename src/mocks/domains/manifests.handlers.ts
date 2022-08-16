@@ -10,6 +10,12 @@ export const handlers = [
 			ctx.json({
 				manifests: [
 					{
+						type: 'startUp',
+						alias: 'My.StartUp.Custom',
+						name: 'My Start Up',
+						js: '/App_Plugins/startup.js',
+					},
+					{
 						type: 'propertyEditorUI',
 						alias: 'My.PropertyEditorUI.Custom',
 						name: 'My Custom Property Editor UI',
