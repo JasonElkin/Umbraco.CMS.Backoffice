@@ -36,6 +36,12 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 	@property({ type: String })
 	entityKey = '';
 
+	@property({ type: Boolean })
+	create = false;
+
+	@property({ type: String })
+	parentEntityKey = '';
+
 	@state()
 	private _dataTypeName = '';
 
