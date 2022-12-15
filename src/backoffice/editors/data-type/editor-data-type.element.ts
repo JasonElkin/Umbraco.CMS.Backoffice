@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { UUIInputElement, UUIInputEvent } from '@umbraco-ui/uui';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, LitElement } from 'lit';
@@ -112,7 +113,17 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 	}
 
 	private _createDataType() {
-		this._dataTypeContext = new UmbDataTypeContext();
+		this._dataTypeContext = new UmbDataTypeContext({
+			key: uuidv4(),
+			name: '',
+			icon: '',
+			type: 'data-type',
+			hasChildren: false,
+			parentKey: this.parentEntityKey,
+			propertyEditorModelAlias: '',
+			propertyEditorUIAlias: '',
+			data: [],
+		});
 		this.provideContext('umbDataTypeContext', this._dataTypeContext);
 	}
 

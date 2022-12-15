@@ -30,7 +30,12 @@ export class UmbDataTypesStore extends UmbDataStoreBase<DataTypeDetails | Folder
 				this.updateItems(data);
 			});
 
-		return this.items.pipe(map((dataTypes) => dataTypes.find((dataType) => dataType.key === key && isDataTypeDetails(dataType)) as DataTypeDetails || null));
+		return this.items.pipe(
+			map(
+				(dataTypes) =>
+					(dataTypes.find((dataType) => dataType.key === key && isDataTypeDetails(dataType)) as DataTypeDetails) || null
+			)
+		);
 	}
 
 	/**
@@ -97,7 +102,7 @@ export class UmbDataTypesStore extends UmbDataStoreBase<DataTypeDetails | Folder
 
 		return this.items.pipe(map((items) => items.filter((item) => item.parentKey === null)));
 	}
-	
+
 	/**
 	 * @description - Get the children of a tree item.
 	 * @param {string} key

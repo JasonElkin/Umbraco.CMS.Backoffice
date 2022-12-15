@@ -7,7 +7,7 @@ export class UmbDataTypeContext {
 		key: '',
 		name: '',
 		icon: '',
-		type: 'dataType',
+		type: 'data-type',
 		hasChildren: false,
 		parentKey: '',
 		propertyEditorModelAlias: '',
@@ -16,7 +16,7 @@ export class UmbDataTypeContext {
 	});
 	public readonly data: Observable<DataTypeDetails> = this._data.asObservable();
 
-	constructor(dataType?: DataTypeDetails) {
+	constructor(dataType: DataTypeDetails) {
 		if (!dataType) return;
 		this._data.next(dataType);
 	}
