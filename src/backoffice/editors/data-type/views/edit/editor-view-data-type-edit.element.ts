@@ -17,10 +17,10 @@ export class UmbEditorViewDataTypeEditElement extends UmbContextConsumerMixin(Um
 		UUITextStyles,
 		css`
 			:host {
-				display:block;
+				display: block;
 				margin: var(--uui-size-layout-1);
 			}
-		`
+		`,
 	];
 
 	@state()
