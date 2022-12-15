@@ -28,7 +28,7 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 			#header {
 				/* TODO: can this be applied from layout slot CSS? */
 				margin: 0 var(--uui-size-layout-1);
-				flex:1 1 auto;
+				flex: 1 1 auto;
 			}
 		`,
 	];
@@ -55,7 +55,12 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 
 		this.consumeAllContexts(['umbDataTypeStore'], (instances) => {
 			this._dataTypeStore = instances['umbDataTypeStore'];
-			this._observeDataType();
+
+			if (this.create) {
+				this._createDataType();
+			} else {
+				this._observeDataType();
+			}
 		});
 
 		this.addEventListener('property-value-change', this._onPropertyValueChange);
@@ -106,6 +111,11 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 		});
 	}
 
+	private _createDataType() {
+		this._dataTypeContext = new UmbDataTypeContext();
+		this.provideContext('umbDataTypeContext', this._dataTypeContext);
+	}
+
 	private _observeDataType() {
 		if (!this._dataTypeStore) return;
 
@@ -146,7 +156,12 @@ export class UmbEditorDataTypeElement extends UmbContextProviderMixin(
 	render() {
 		return html`
 			<umb-editor-entity-layout alias="Umb.Editor.DataType">
-				<uui-input id="header" slot="header" .value=${this._dataTypeName} @input="${this._handleInput}"></uui-input>
+				<uui-input
+					id="header"
+					slot="header"
+					.value=${this._dataTypeName}
+					@input="${this._handleInput}"
+					placeholder="Name..."></uui-input>
 			</umb-editor-entity-layout>
 		`;
 	}
