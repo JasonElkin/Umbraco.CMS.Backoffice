@@ -22,9 +22,6 @@ export class UmbEditorEntityElement extends UmbContextConsumerMixin(UmbObserverM
 		`,
 	];
 
-	@property()
-	public entityKey!: string;
-
 	private _entityType = '';
 	@property()
 	public get entityType(): string {
@@ -35,10 +32,19 @@ export class UmbEditorEntityElement extends UmbContextConsumerMixin(UmbObserverM
 		this._observeEditors();
 	}
 
+	@property()
+	public entityKey!: string;
+
+	@property()
+	public parentEntityKey?: boolean;
+
+	@property()
+	public create?: boolean;
+
 	@state()
 	private _element?: HTMLElement;
 
-	private _currentEditorAlias:string | null = null;
+	private _currentEditorAlias: string | null = null;
 
 	connectedCallback(): void {
 		super.connectedCallback();
@@ -65,10 +71,12 @@ export class UmbEditorEntityElement extends UmbContextConsumerMixin(UmbObserverM
 	}
 
 	private async _createElement(editor?: ManifestEditor) {
-		this._element = editor ? (await createExtensionElement(editor)) : undefined;
+		this._element = editor ? await createExtensionElement(editor) : undefined;
 		if (this._element) {
 			// TODO: use contextApi for this.
 			(this._element as any).entityKey = this.entityKey;
+			(this._element as any).create = this.create;
+			(this._element as any).parentEntityKey = this.parentEntityKey;
 			return;
 		}
 
