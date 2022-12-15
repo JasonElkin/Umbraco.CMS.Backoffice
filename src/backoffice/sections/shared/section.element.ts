@@ -84,11 +84,20 @@ export class UmbSectionElement extends UmbContextConsumerMixin(UmbObserverMixin(
 				component: () => import('./section-dashboards/section-dashboards.element'),
 			},
 			{
-				path: `:entityType/:key`,
+				path: `:entityType/edit/:key`,
 				component: () => import('../../editors/shared/editor-entity/editor-entity.element'),
 				setup: (component: UmbEditorEntityElement, info: any) => {
-					component.entityKey = info.match.params.key;
 					component.entityType = info.match.params.entityType;
+					component.entityKey = info.match.params.key;
+				},
+			},
+			{
+				path: `:entityType/create/:parentKey`,
+				component: () => import('../../editors/shared/editor-entity/editor-entity.element'),
+				setup: (component: UmbEditorEntityElement, info: any) => {
+					component.entityType = info.match.params.entityType;
+					component.parentEntityKey = info.match.params.parentKey;
+					component.create = true;
 				},
 			},
 			{
