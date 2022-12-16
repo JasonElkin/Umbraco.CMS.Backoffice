@@ -20,7 +20,7 @@ export interface Entity {
 	icon: string;
 	type: string;
 	hasChildren: boolean;
-	parentKey: string;
+	parentKey: string | null;
 }
 
 export interface UserEntity extends Entity {

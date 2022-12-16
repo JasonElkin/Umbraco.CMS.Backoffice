@@ -3,15 +3,16 @@ import { repeat } from 'lit/directives/repeat.js';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { v4 as uuidv4 } from 'uuid';
 import { UmbSectionContext } from '../../sections/section.context';
 import { UmbTreeContext } from '../tree.context';
+import { UmbTreeContextMenuService } from './context-menu/tree-context-menu.service';
 import { UmbObserverMixin } from '@umbraco-cms/observable-api';
 import { UmbContextConsumerMixin } from '@umbraco-cms/context-api';
-import type { Entity, ManifestSection, ManifestTree } from '@umbraco-cms/models';
+import type { Entity, ManifestSection } from '@umbraco-cms/models';
 import { UmbDataStore } from 'src/core/stores/store';
 
 import './tree-item.element';
-import { UmbDocumentTypeStore } from '@umbraco-cms/stores/document-type/document-type.store';
 
 @customElement('umb-tree-navigator')
 export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbObserverMixin(LitElement)) {
@@ -24,11 +25,13 @@ export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbObserverMixin(L
 	private _items: Entity[] = [];
 
 	@state()
-	private _tree?: ManifestTree;
-
-	@state()
 	private _href?: string;
 
+	@state()
+	private _treeRootNode?: any;
+
+	private _treeContext?: UmbTreeContext;
+	private _treeContextMenuService?: UmbTreeContextMenuService;
 	private _treeStore?: UmbDataStore<unknown>;
 	private _sectionContext?: UmbSectionContext;
 
@@ -40,7 +43,19 @@ export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbObserverMixin(L
 		});
 
 		this.consumeContext('umbTreeContext', (treeContext: UmbTreeContext) => {
-			this._tree = treeContext.tree;
+			this._treeContext = treeContext;
+
+			this._treeRootNode = {
+				name: treeContext.tree.meta.label || '',
+				icon: treeContext.tree.meta.icon || '',
+				type: treeContext.tree.meta.rootNodeEntityType,
+				hasChildren: true,
+				parentKey: null,
+			};
+		});
+
+		this.consumeContext('umbTreeContextMenuService', (treeContextMenuService: UmbTreeContextMenuService) => {
+			this._treeContextMenuService = treeContextMenuService;
 		});
 
 		this.consumeContext('umbSectionContext', (sectionContext: UmbSectionContext) => {
@@ -69,7 +84,7 @@ export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbObserverMixin(L
 		if (!this._sectionContext) return;
 
 		this.observe<ManifestSection>(this._sectionContext?.data, (section) => {
-			this._href = this._constructPath(section.meta.pathname, this._tree?.meta.rootNodeEntityType);
+			this._href = this._constructPath(section.meta.pathname, this._treeRootNode?.type);
 		});
 	}
 
@@ -78,15 +93,29 @@ export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbObserverMixin(L
 		return type ? `section/${sectionPathname}/${type}` : undefined;
 	}
 
+	private _openActions() {
+		if (!this._treeContext || !this._sectionContext || !this._treeRootNode) return;
+
+		this._sectionContext?.setActiveTree(this._treeContext?.tree);
+		this._sectionContext?.setActiveTreeItem(this._treeRootNode);
+		this._treeContextMenuService?.open({ name: this._treeRootNode.name, key: this._treeRootNode.key });
+	}
+
 	render() {
 		// TODO: how do we know if a tree has children?
+		// TODO: can we use tree item here instead so we don't have duplicated code?
 		return html`<uui-menu-item
-			label="${ifDefined(this._tree?.meta.label)}"
+			label="${ifDefined(this._treeRootNode?.name)}"
 			@show-children=${this._onShowRoot}
 			href="${ifDefined(this._href)}"
 			has-children>
-			<uui-icon slot="icon" name="${ifDefined(this._tree?.meta.icon)}"></uui-icon>
 			${this._renderRootItems()}
+			<uui-icon slot="icon" name="${ifDefined(this._treeRootNode?.icon)}"></uui-icon>
+			<uui-action-bar slot="actions">
+				<uui-button @click=${this._openActions} label="Open actions menu">
+					<uui-symbol-more></uui-symbol-more>
+				</uui-button>
+			</uui-action-bar>
 		</uui-menu-item>`;
 	}
 

@@ -1,6 +1,5 @@
 import type { ManifestTree } from '@umbraco-cms/models';
 
-
 export const manifests: Array<ManifestTree> = [
 	{
 		type: 'tree',
@@ -25,6 +24,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Document Types',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Settings'],
+			rootNodeEntityType: 'document-type',
 		},
 	},
 	{
@@ -37,6 +37,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Media Types',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Settings'],
+			rootNodeEntityType: 'media-type',
 		},
 	},
 	{
@@ -49,6 +50,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Member Types',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Settings'],
+			rootNodeEntityType: 'member-type',
 		},
 	},
 	{
@@ -61,6 +63,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Data Types',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Settings'],
+			rootNodeEntityType: 'data-type',
 		},
 	},
 	{
@@ -73,6 +76,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Member Groups',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Members'],
+			rootNodeEntityType: 'member-group',
 		},
 	},
 	{
@@ -85,6 +89,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Media',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Media'],
+			rootNodeEntityType: 'media',
 		},
 	},
 	{
@@ -97,6 +102,7 @@ export const manifests: Array<ManifestTree> = [
 			label: 'Documents',
 			icon: 'umb:folder',
 			sections: ['Umb.Section.Content'],
+			rootNodeEntityType: 'document',
 		},
 	},
 ];
