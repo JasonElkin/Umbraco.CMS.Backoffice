@@ -136,7 +136,7 @@ export class UmbTreeNavigator extends UmbContextConsumerMixin(UmbContextProvider
 		return html`
 			${repeat(
 				this._items,
-				(item) => item.key,
+				(item) => item.key + item.name,
 				(item) => html`<umb-tree-item .treeItem=${item} .loading=${this._loading}></umb-tree-item>`
 			)}
 		`;
