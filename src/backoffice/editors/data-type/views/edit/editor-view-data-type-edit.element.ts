@@ -78,6 +78,9 @@ export class UmbEditorViewDataTypeEditElement extends UmbContextConsumerMixin(Um
 		this.observe<ManifestPropertyEditorUI>(
 			umbExtensionsRegistry.getByAlias<ManifestPropertyEditorUI>(propertyEditorUIAlias),
 			(propertyEditorUI) => {
+				// TODO: show error. We have stored a PropertyEditorUIAlias and can't find the PropertyEditorUI in the registry.
+				if (!propertyEditorUI) return;
+
 				this._propertyEditorUIName = propertyEditorUI?.meta.label ?? propertyEditorUI?.name ?? '';
 				this._propertyEditorUIAlias = propertyEditorUI?.alias ?? '';
 				this._propertyEditorUIIcon = propertyEditorUI?.meta?.icon ?? '';
