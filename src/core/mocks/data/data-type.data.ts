@@ -70,19 +70,6 @@ export const data: Array<DataTypeDetails> = [
 		propertyEditorUIAlias: 'Umb.PropertyEditorUI.ContentPicker',
 		data: [],
 	},
-	{
-		name: 'Empty',
-		type: 'data-type',
-		icon: 'umb:autofill',
-		hasChildren: false,
-		key: 'dt-6',
-		isContainer: false,
-		parentKey: null,
-		isFolder: false,
-		propertyEditorModelAlias: '',
-		propertyEditorUIAlias: '',
-		data: [],
-	},
 ];
 
 // Temp mocked database
