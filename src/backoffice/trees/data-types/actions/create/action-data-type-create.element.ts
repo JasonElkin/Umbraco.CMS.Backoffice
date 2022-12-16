@@ -9,7 +9,7 @@ export default class UmbTreeActionDataTypeCreateElement extends UmbTreeItemActio
 
 	// TODO: how do we handle the href?
 	private _constructUrl() {
-		return `section/settings/${this._activeTreeItem?.type}/create/${this._activeTreeItem?.key}`;
+		return `section/settings/${this._activeTreeItem?.type}/create/${this._activeTreeItem?.key || 'root'}`;
 	}
 
 	private _handleLabelClick() {

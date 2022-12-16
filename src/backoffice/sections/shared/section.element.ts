@@ -92,12 +92,20 @@ export class UmbSectionElement extends UmbContextConsumerMixin(UmbObserverMixin(
 				},
 			},
 			{
+				path: `:entityType/create/root`,
+				component: () => import('../../workspaces/shared/workspace-entity/workspace-entity.element'),
+				setup: (component: UmbWorkspaceEntityElement, info: any) => {
+					component.entityType = info.match.params.entityType;
+					component.parentEntityKey = null;
+					component.create = true;
+				},
+			},
+			{
 				path: `:entityType/create/:parentKey`,
 				component: () => import('../../workspaces/shared/workspace-entity/workspace-entity.element'),
 				setup: (component: UmbWorkspaceEntityElement, info: any) => {
 					component.entityType = info.match.params.entityType;
-					// TODO: how do we handle root nodes? we can't use -1 anymore. Should we set up a specific route for root nodes?
-					component.parentEntityKey = info.match.params.parentKey === 'undefined' ? null : info.match.params.parentKey;
+					component.parentEntityKey = info.match.params.parentKey;
 					component.create = true;
 				},
 			},

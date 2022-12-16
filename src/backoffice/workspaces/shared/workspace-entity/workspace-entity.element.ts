@@ -36,7 +36,7 @@ export class UmbWorkspaceEntityElement extends UmbContextConsumerMixin(UmbObserv
 	public entityKey!: string;
 
 	@property()
-	public parentEntityKey?: boolean;
+	public parentEntityKey?: string | null = null;
 
 	@property()
 	public create?: boolean;
