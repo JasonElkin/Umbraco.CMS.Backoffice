@@ -1,5 +1,5 @@
 //TODO: we need to figure out what components should be available for extensions and load them upfront
-import './workspaces/shared/workspace-entity/workspace-entity.element';
+import './test/core/components/workspace/workspace-entity/workspace-entity.element';
 import './components/ref-property-editor-ui/ref-property-editor-ui.element';
 import './components/backoffice-frame/backoffice-header.element';
 import './components/backoffice-frame/backoffice-main.element';
@@ -9,10 +9,10 @@ import './components/content-property/content-property.element';
 import './components/table/table.element';
 import './components/shared/code-block.element';
 import './components/extension-slot/extension-slot.element';
-import './sections/shared/section-main/section-main.element';
-import './sections/shared/section-sidebar/section-sidebar.element';
-import './sections/shared/section.element';
-import './trees/shared/tree.element';
+import './test/core/components/section/section-main/section-main.element';
+import './test/core/components/section/section-sidebar/section-sidebar.element';
+import './test/core/components/section/section.element';
+import './test/core/components/tree/tree.element';
 
 import { defineElement } from '@umbraco-ui/uui-base/lib/registration';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
@@ -28,18 +28,18 @@ import { UmbDocumentStore } from '../core/stores/document/document.store';
 import { UmbMediaStore } from '../core/stores/media/media.store';
 import { UmbMemberGroupStore } from '../core/stores/member-group/member-group.store';
 import { UmbSectionStore } from '../core/stores/section.store';
-import { UmbUserStore } from '../core/stores/user/user.store';
 import { UmbIconStore } from '../core/stores/icon/icon.store';
-import { UmbUserGroupStore } from '../core/stores/user/user-group.store';
 import { UmbCurrentUserHistoryStore } from '../core/stores/current-user-history/current-user-history.store';
-import { UmbDictionaryStore } from '../core/stores/dictionary/dictionary.store';
 import { UmbDocumentBlueprintStore } from '../core/stores/document-blueprint/document-blueprint.store';
+import { UmbUserGroupStore } from './test/users/user-group.store';
+import { UmbUserStore } from './test/users/user.store';
+import { UmbDictionaryStore } from './test/translation/dictionary.store';
 
-import { manifests as sectionManifests } from './sections/manifests';
+import { manifests as sectionManifests } from './section.manifests';
 import { manifests as propertyEditorModelManifests } from './property-editors/models/manifests';
 import { manifests as propertyEditorUIManifests } from './property-editors/uis/manifests';
-import { manifests as treeManifests } from './trees/manifests';
-import { manifests as editorManifests } from './workspaces/manifests';
+import { manifests as treeManifests } from './tree.manifests';
+import { manifests as editorManifests } from './workspace.manifests';
 import { manifests as propertyActionManifests } from './property-actions/manifests';
 import { manifests as externalLoginProviderManifests } from './external-login-providers/manifests';
 import { manifests as userDashboards } from './user-dashboards/manifests';
@@ -71,6 +71,7 @@ export class UmbBackofficeElement extends UmbContextConsumerMixin(UmbContextProv
 	constructor() {
 		super();
 
+		// TODO: this needs to happen in each extension
 		this._registerExtensions(sectionManifests);
 		this._registerExtensions(treeManifests);
 		this._registerExtensions(editorManifests);
@@ -82,6 +83,7 @@ export class UmbBackofficeElement extends UmbContextConsumerMixin(UmbContextProv
 
 		this._umbIconRegistry.attach(this);
 
+		// TODO: find a way this is possible outside this element. It needs to be possible to register stores in extensions
 		this.provideContext('umbDocumentStore', new UmbDocumentStore());
 		this.provideContext('umbMediaStore', new UmbMediaStore());
 		this.provideContext('umbDataTypeStore', new UmbDataTypeStore());
