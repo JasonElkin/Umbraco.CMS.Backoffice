@@ -78,6 +78,12 @@ export const data: Array<DocumentDetails> = [
 				description: '',
 				dataTypeKey: 'dt-textArea',
 			},
+			{
+				alias: 'userPicker',
+				label: 'User Picker',
+				description: '',
+				dataTypeKey: 'dt-userPicker',
+			},
 		],
 		data: [],
 		variants: [],

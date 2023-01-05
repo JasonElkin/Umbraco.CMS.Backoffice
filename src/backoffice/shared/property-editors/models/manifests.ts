@@ -10,6 +10,7 @@ import { manifest as dropdownFlexible } from './Umbraco.Dropdown.Flexible';
 import { manifest as textBox } from './Umbraco.TextBox';
 import { manifest as multipleTextString } from './Umbraco.MultipleTextString';
 import { manifest as textArea } from './Umbraco.TextArea';
+import { manifest as userPicker } from './Umbraco.UserPicker';
 
 import type { ManifestPropertyEditorModel } from '@umbraco-cms/models';
 
@@ -26,6 +27,7 @@ export const manifests: Array<ManifestPropertyEditorModel> = [
 	textBox,
 	multipleTextString,
 	textArea,
+	userPicker,
 	{
 		type: 'propertyEditorModel',
 		name: 'Decimal',
@@ -84,12 +86,6 @@ export const manifests: Array<ManifestPropertyEditorModel> = [
 		type: 'propertyEditorModel',
 		name: 'Member Picker',
 		alias: 'Umbraco.MemberPicker',
-		meta: {},
-	},
-	{
-		type: 'propertyEditorModel',
-		name: 'User Picker',
-		alias: 'Umbraco.UserPicker',
 		meta: {},
 	},
 	{
