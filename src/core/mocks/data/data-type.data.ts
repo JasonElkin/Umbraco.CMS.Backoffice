@@ -265,6 +265,19 @@ export const data: Array<DataTypeDetails> = [
 		propertyEditorUIAlias: 'Umb.PropertyEditorUI.MemberGroupPicker',
 		data: [],
 	},
+	{
+		name: 'Icon Picker',
+		type: 'data-type',
+		icon: 'umb:autofill',
+		hasChildren: false,
+		key: 'dt-iconPicker',
+		isContainer: false,
+		parentKey: null,
+		isFolder: false,
+		propertyEditorModelAlias: 'Umbraco.IconPicker',
+		propertyEditorUIAlias: 'Umb.PropertyEditorUI.IconPicker',
+		data: [],
+	},
 ];
 
 // Temp mocked database

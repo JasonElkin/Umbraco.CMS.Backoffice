@@ -96,6 +96,12 @@ export const data: Array<DocumentDetails> = [
 				description: '',
 				dataTypeKey: 'dt-memberGroupPicker',
 			},
+			{
+				alias: 'iconPicker',
+				label: 'Icon Picker',
+				description: '',
+				dataTypeKey: 'dt-iconPicker',
+			},
 		],
 		data: [],
 		variants: [],
