@@ -90,6 +90,12 @@ export const data: Array<DocumentDetails> = [
 				description: '',
 				dataTypeKey: 'dt-memberPicker',
 			},
+			{
+				alias: 'memberGroupPicker',
+				label: 'Member Group Picker',
+				description: '',
+				dataTypeKey: 'dt-memberGroupPicker',
+			},
 		],
 		data: [],
 		variants: [],
