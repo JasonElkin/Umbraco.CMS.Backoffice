@@ -84,6 +84,12 @@ export const data: Array<DocumentDetails> = [
 				description: '',
 				dataTypeKey: 'dt-userPicker',
 			},
+			{
+				alias: 'memberPicker',
+				label: 'Member Picker',
+				description: '',
+				dataTypeKey: 'dt-memberPicker',
+			},
 		],
 		data: [],
 		variants: [],

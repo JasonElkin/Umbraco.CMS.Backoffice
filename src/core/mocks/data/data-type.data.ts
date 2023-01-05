@@ -239,6 +239,19 @@ export const data: Array<DataTypeDetails> = [
 		propertyEditorUIAlias: 'Umb.PropertyEditorUI.UserPicker',
 		data: [],
 	},
+	{
+		name: 'Member Picker',
+		type: 'data-type',
+		icon: 'umb:autofill',
+		hasChildren: false,
+		key: 'dt-memberPicker',
+		isContainer: false,
+		parentKey: null,
+		isFolder: false,
+		propertyEditorModelAlias: 'Umbraco.MemberPicker',
+		propertyEditorUIAlias: 'Umb.PropertyEditorUI.MemberPicker',
+		data: [],
+	},
 ];
 
 // Temp mocked database
