@@ -91,8 +91,6 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 				this._propertyEditorUIAlias = propertyEditorUI?.alias ?? '';
 				this._propertyEditorUIIcon = propertyEditorUI?.meta.icon ?? '';
 				this._propertyEditorModelAlias = propertyEditorUI?.meta.propertyEditorModel ?? '';
-
-				this._workspaceContext?.setPropertyEditorModelAlias(this._propertyEditorModelAlias);
 			}
 		);
 	}
@@ -112,7 +110,6 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 
 	private _selectPropertyEditorUI(propertyEditorUIAlias: string | undefined) {
 		if (!this._dataType || this._dataType.propertyEditorUIAlias === propertyEditorUIAlias) return;
-		this._workspaceContext?.setPropertyEditorUIAlias(propertyEditorUIAlias);
 		this._observePropertyEditorUI(propertyEditorUIAlias);
 	}
 

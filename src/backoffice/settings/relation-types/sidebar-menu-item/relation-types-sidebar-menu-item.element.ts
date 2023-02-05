@@ -15,9 +15,6 @@ export class UmbRelationTypesSidebarMenuItemElement extends UmbLitElement {
 		this._renderTree = false;
 	}
 
-	// TODO: check if root has children before settings the has-children attribute
-	// TODO: how do we want to cache the tree? (do we want to rerender every time the user opens the tree)?
-	// TODO: can we make this reusable?
 	render() {
 		return html`<umb-tree-item
 			label="Relation Types"
@@ -26,7 +23,7 @@ export class UmbRelationTypesSidebarMenuItemElement extends UmbLitElement {
 			@show-children=${this._onShowChildren}
 			@hide-children=${this._onHideChildren}
 			has-children>
-			${this._renderTree ? html`<umb-tree alias="Umb.Tree.DataTypes"></umb-tree>` : nothing}
+			${this._renderTree ? html`<umb-tree alias="Umb.Tree.RelationTypes"></umb-tree>` : nothing}
 		</umb-tree-item> `;
 	}
 }
