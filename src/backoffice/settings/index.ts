@@ -4,6 +4,7 @@ import { manifests as dataTypeManifests } from './data-types/manifests';
 import { manifests as extensionManifests } from './extensions/manifests';
 import { manifests as languageManifests } from './languages/manifests';
 import { manifests as logviewerManifests } from './logviewer/manifests';
+import { manifests as relationTypeManifests } from './relation-types/manifests';
 
 import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
 import { ManifestTypes } from '@umbraco-cms/extensions-registry';
@@ -22,4 +23,5 @@ registerExtensions([
 	...extensionManifests,
 	...languageManifests,
 	...logviewerManifests,
+	...relationTypeManifests,
 ]);
