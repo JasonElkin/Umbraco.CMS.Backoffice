@@ -3,7 +3,6 @@ import { css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { UUIBooleanInputEvent } from '@umbraco-ui/uui';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
-import { UmbWorkspaceRelationTypeContext } from '../../relation-type-workspace.context';
 import { UmbLitElement } from '@umbraco-cms/element';
 import type { RelationTypeDetails } from '@umbraco-cms/models';
 
@@ -32,33 +31,16 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 		data: [],
 	};
 
-	private _workspaceContext?: UmbWorkspaceRelationTypeContext;
-
 	constructor() {
 		super();
-
-		this.consumeContext<UmbWorkspaceRelationTypeContext>('umbWorkspaceContext', (_instance) => {
-			this._workspaceContext = _instance;
-			this._observeDataType();
-		});
+		//TODO: Get the relation type from the database
+		//TODO: Is a workspace context necessary here? This view is readonly and should not be able to change the relation type.
 
 		//TODO Code below fixes an issue with radio-group, where the initial value is not passed to the children.
 		requestAnimationFrame(() => {
 			const radioGroup = this.shadowRoot?.querySelector('uui-radio-group');
 			radioGroup?.setAttribute('value', '');
 			radioGroup?.setAttribute('value', 'parent-to-child');
-		});
-	}
-
-	private _observeDataType() {
-		if (!this._workspaceContext) {
-			return;
-		}
-
-		this.observe(this._workspaceContext.data, (relationType) => {
-			if (!relationType) return;
-
-			this._relationType = relationType;
 		});
 	}
 
@@ -93,7 +75,7 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 					</uui-radio-group>
 				</umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Parent">
-					<div slot="editor">${this.#parent}}</div>
+					<div slot="editor">${this.#parent}</div>
 				</umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Child">
 					<div slot="editor">${this.#child}</div>
