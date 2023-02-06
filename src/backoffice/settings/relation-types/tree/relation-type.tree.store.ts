@@ -21,7 +21,6 @@ export class UmbRelationTypeTreeStore extends UmbStoreBase {
 		super(host, UMB_RELATION_TYPE_TREE_STORE_CONTEXT_TOKEN.toString());
 	}
 
-	// TODO: How can we avoid having this in both stores?
 	/**
 	 * @description - Delete a Data Type.
 	 * @param {string[]} keys
@@ -29,7 +28,6 @@ export class UmbRelationTypeTreeStore extends UmbStoreBase {
 	 * @return {*}  {Promise<void>}
 	 */
 	async delete(keys: string[]) {
-		// TODO: use backend cli when available.
 		await fetch('/umbraco/backoffice/relation-type/delete', {
 			method: 'POST',
 			body: JSON.stringify(keys),

@@ -83,7 +83,7 @@ export interface RelationTypeDetails extends FolderTreeItem {
 	data: Array<RelationTypePropertyData>;
 	parent?: string;
 	child?: string;
-	direction?: 'Parent to child' | 'Bidirectional';
+	direction?: 'parent-to-child' | 'bidirectional';
 	isDependency?: boolean;
 }
 

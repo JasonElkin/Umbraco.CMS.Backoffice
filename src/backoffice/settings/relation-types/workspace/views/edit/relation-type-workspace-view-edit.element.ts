@@ -1,11 +1,11 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { css, html, nothing } from 'lit';
+import { css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { UmbModalService, UMB_MODAL_SERVICE_CONTEXT_TOKEN } from '../../../../../../core/modal';
+import { UUIBooleanInputEvent } from '@umbraco-ui/uui';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { UmbWorkspaceRelationTypeContext } from '../../relation-type-workspace.context';
 import { UmbLitElement } from '@umbraco-cms/element';
-import type { DataTypeDetails } from '@umbraco-cms/models';
-import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
+import type { RelationTypeDetails } from '@umbraco-cms/models';
 
 import '../../../../../shared/property-editors/shared/property-editor-config/property-editor-config.element';
 import '../../../../../shared/components/ref-property-editor-ui/ref-property-editor-ui.element';
@@ -23,37 +23,30 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 	];
 
 	@state()
-	_dataType?: DataTypeDetails;
-
-	@state()
-	private _propertyEditorUIIcon = '';
-
-	@state()
-	private _propertyEditorUIName = '';
-
-	@state()
-	private _propertyEditorUIAlias = '';
-
-	@state()
-	private _propertyEditorModelAlias = '';
-
-	@state()
-	private _data: Array<any> = [];
+	private _relationType?: RelationTypeDetails = {
+		key: '',
+		parent: '',
+		child: '',
+		direction: 'parent-to-child',
+		isDependency: true,
+		data: [],
+	};
 
 	private _workspaceContext?: UmbWorkspaceRelationTypeContext;
-	private _modalService?: UmbModalService;
 
 	constructor() {
 		super();
 
-		this.consumeContext(UMB_MODAL_SERVICE_CONTEXT_TOKEN, (_instance) => {
-			this._modalService = _instance;
-		});
-
-		// TODO: Figure out if this is the best way to consume a context or if it could be strongly typed using UmbContextToken
 		this.consumeContext<UmbWorkspaceRelationTypeContext>('umbWorkspaceContext', (_instance) => {
 			this._workspaceContext = _instance;
 			this._observeDataType();
+		});
+
+		//TODO Code below fixes an issue with radio-group, where the initial value is not passed to the children.
+		requestAnimationFrame(() => {
+			const radioGroup = this.shadowRoot?.querySelector('uui-radio-group');
+			radioGroup?.setAttribute('value', '');
+			radioGroup?.setAttribute('value', 'parent-to-child');
 		});
 	}
 
@@ -62,105 +55,56 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 			return;
 		}
 
-		this.observe(this._workspaceContext.data, (dataType) => {
-			if (!dataType) return;
+		this.observe(this._workspaceContext.data, (relationType) => {
+			if (!relationType) return;
 
-			// TODO: handle if model is not of the type wanted.
-			this._dataType = dataType as DataTypeDetails;
-
-			if (this._dataType.propertyEditorUIAlias !== this._propertyEditorUIAlias) {
-				this._observePropertyEditorUI(this._dataType.propertyEditorUIAlias || undefined);
-			}
-
-			if (this._dataType.data !== this._data) {
-				this._data = this._dataType.data;
-			}
+			this._relationType = relationType;
 		});
 	}
 
-	private _observePropertyEditorUI(propertyEditorUIAlias?: string) {
-		if (!propertyEditorUIAlias) return;
-
-		this.observe(
-			umbExtensionsRegistry.getByTypeAndAlias('propertyEditorUI', propertyEditorUIAlias),
-			(propertyEditorUI) => {
-				// TODO: show error. We have stored a PropertyEditorUIAlias and can't find the PropertyEditorUI in the registry.
-				if (!propertyEditorUI) return;
-
-				this._propertyEditorUIName = propertyEditorUI?.meta.label ?? propertyEditorUI?.name ?? '';
-				this._propertyEditorUIAlias = propertyEditorUI?.alias ?? '';
-				this._propertyEditorUIIcon = propertyEditorUI?.meta.icon ?? '';
-				this._propertyEditorModelAlias = propertyEditorUI?.meta.propertyEditorModel ?? '';
-			}
-		);
+	get #parent() {
+		//TODO: Return the parent from the parent key
+		return 'Document';
 	}
 
-	private _openPropertyEditorUIPicker() {
-		if (!this._dataType) return;
-
-		const modalHandler = this._modalService?.propertyEditorUIPicker({
-			selection: this._propertyEditorUIAlias ? [this._propertyEditorUIAlias] : [],
-		});
-
-		modalHandler?.onClose().then(({ selection } = {}) => {
-			if (!selection) return;
-			this._selectPropertyEditorUI(selection[0]);
-		});
+	get #child() {
+		//TODO: Return the child from the parent key
+		return 'Document';
 	}
 
-	private _selectPropertyEditorUI(propertyEditorUIAlias: string | undefined) {
-		if (!this._dataType || this._dataType.propertyEditorUIAlias === propertyEditorUIAlias) return;
-		this._observePropertyEditorUI(propertyEditorUIAlias);
+	#handleDirectionChange(e: UUIBooleanInputEvent) {
+		//TODO handle direction change
+	}
+
+	#handleIsDependencyChange(e: UUIBooleanInputEvent) {
+		//TODO handle isDependency change
 	}
 
 	render() {
 		return html`
-			<uui-box style="margin-bottom: var(--uui-size-space-5);"> ${this._renderPropertyEditorUI()} </uui-box>
-			${this._renderConfig()} </uui-box>
-		`;
-	}
-
-	private _renderPropertyEditorUI() {
-		return html`
-			<umb-workspace-property-layout label="Property Editor" description="Select a property editor">
-				${this._propertyEditorUIAlias
-					? html`
-							<!-- TODO: border is a bit weird attribute name. Maybe single or standalone would be better? -->
-							<umb-ref-property-editor-ui
-								slot="editor"
-								name=${this._propertyEditorUIName}
-								alias=${this._propertyEditorUIAlias}
-								property-editor-model-alias=${this._propertyEditorModelAlias}
-								border>
-								<uui-icon name="${this._propertyEditorUIIcon}" slot="icon"></uui-icon>
-								<uui-action-bar slot="actions">
-									<uui-button label="Change" @click=${this._openPropertyEditorUIPicker}></uui-button>
-								</uui-action-bar>
-							</umb-ref-property-editor-ui>
-					  `
-					: html`
-							<uui-button
-								slot="editor"
-								label="Select Property Editor"
-								look="placeholder"
-								color="default"
-								@click=${this._openPropertyEditorUIPicker}></uui-button>
-					  `}
-			</umb-workspace-property-layout>
-		`;
-	}
-
-	private _renderConfig() {
-		return html`
-			${this._propertyEditorModelAlias && this._propertyEditorUIAlias
-				? html`
-						<uui-box headline="Config">
-							<umb-property-editor-config
-								property-editor-ui-alias="${this._propertyEditorUIAlias}"
-								.data="${this._data}"></umb-property-editor-config>
-						</uui-box>
-				  `
-				: nothing}
+			<uui-box>
+				<umb-workspace-property-layout label="Direction">
+					<uui-radio-group
+						value=${ifDefined(this._relationType?.direction)}
+						@change=${this.#handleDirectionChange}
+						slot="editor">
+						<uui-radio label="Parent to child" value="parent-to-child"></uui-radio>
+						<uui-radio label="Bidirectional" value="bidirectional"></uui-radio>
+					</uui-radio-group>
+				</umb-workspace-property-layout>
+				<umb-workspace-property-layout label="Parent">
+					<div slot="editor">${this.#parent}}</div>
+				</umb-workspace-property-layout>
+				<umb-workspace-property-layout label="Child">
+					<div slot="editor">${this.#child}</div>
+				</umb-workspace-property-layout>
+				<umb-workspace-property-layout label="Is dependency">
+					<uui-toggle
+						slot="editor"
+						@change=${this.#handleIsDependencyChange}
+						value=${ifDefined(this._relationType?.isDependency)}></uui-toggle>
+				</umb-workspace-property-layout>
+			</uui-box>
 		`;
 	}
 }
