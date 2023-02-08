@@ -31,18 +31,8 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 		data: [],
 	};
 
-	constructor() {
-		super();
-		//TODO: Get the relation type from the database
-		//TODO: Is a workspace context necessary here? This view is readonly and should not be able to change the relation type.
-
-		//TODO Code below fixes an issue with radio-group, where the initial value is not passed to the children.
-		requestAnimationFrame(() => {
-			const radioGroup = this.shadowRoot?.querySelector('uui-radio-group');
-			radioGroup?.setAttribute('value', '');
-			radioGroup?.setAttribute('value', 'parent-to-child');
-		});
-	}
+	//TODO: Get the relation type from the database
+	//TODO: Is a workspace context necessary here? This view is readonly and should not be able to change the relation type.
 
 	get #parent() {
 		//TODO: Return the parent from the parent key
