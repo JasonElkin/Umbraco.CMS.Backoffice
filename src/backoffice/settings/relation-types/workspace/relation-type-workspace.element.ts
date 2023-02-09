@@ -15,9 +15,9 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 				width: 100%;
 				height: 100%;
 			}
-
-			#content {
-				height: 200px;
+			#header {
+				margin: 0 var(--uui-size-layout-1);
+				flex: 1 1 auto;
 			}
 		`,
 	];
@@ -34,9 +34,6 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 	@state()
 	private _name?: string | null = '';
 
-	@state()
-	private _content?: string | null = '';
-
 	#relationTypeWorkspaceContext = new UmbRelationTypeWorkspaceContext(this);
 	#isNew = false;
 
@@ -46,23 +43,12 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 		this.observe(this.#relationTypeWorkspaceContext.name, (name) => {
 			this._name = name;
 		});
-
-		this.observe(this.#relationTypeWorkspaceContext.content, (content) => {
-			this._content = content;
-		});
 	}
 
-	// TODO: temp code for testing create and save
 	#onNameInput(event: Event) {
 		const target = event.target as UUIInputElement;
 		const value = target.value as string;
 		this.#relationTypeWorkspaceContext.setName(value);
-	}
-
-	#onTextareaInput(event: Event) {
-		const target = event.target as UUITextareaElement;
-		const value = target.value as string;
-		this.#relationTypeWorkspaceContext.setContent(value);
 	}
 
 	#onSave() {
@@ -70,8 +56,9 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 	}
 
 	render() {
-		// TODO: add correct UI elements
-		return html`<umb-workspace-layout alias="Umb.Workspace.RelationType"></umb-workspace-layout>`;
+		return html`<umb-workspace-layout alias="Umb.Workspace.RelationType">
+			<uui-input id="header" slot="header" .value=${this._name} @input="${this.#onNameInput}"></uui-input>
+		</umb-workspace-layout>`;
 	}
 }
 

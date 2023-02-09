@@ -10,7 +10,34 @@ const workspace: ManifestWorkspace = {
 	},
 };
 
-const workspaceViews: Array<ManifestWorkspaceView> = [];
+const workspaceViews: Array<ManifestWorkspaceView> = [
+	{
+		type: 'workspaceView',
+		alias: 'Umb.WorkspaceView.RelationType.Edit',
+		name: 'Relation Type Workspace Edit View',
+		loader: () => import('./views/edit/relation-type-workspace-view-edit.element'),
+		weight: 200,
+		meta: {
+			workspaces: ['Umb.Workspace.RelationType'],
+			label: 'Edit',
+			pathname: 'edit',
+			icon: 'edit',
+		},
+	},
+	{
+		type: 'workspaceView',
+		alias: 'Umb.WorkspaceView.RelationType.Info',
+		name: 'Relation Type Workspace Info View',
+		loader: () => import('./views/info/workspace-view-relation-type-info.element'),
+		weight: 100,
+		meta: {
+			workspaces: ['Umb.Workspace.RelationType'],
+			label: 'Relations',
+			pathname: 'relations',
+			icon: 'relations',
+		},
+	},
+];
 
 const workspaceActions: Array<ManifestWorkspaceAction> = [];
 
