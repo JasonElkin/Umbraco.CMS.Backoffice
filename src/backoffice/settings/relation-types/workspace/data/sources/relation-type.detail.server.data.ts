@@ -1,6 +1,6 @@
 import { umbRelationTypeData } from '../../../../../../core/mocks/data/relation-type.data';
 import { RelationTypeDetailDataSource } from '.';
-import { CancelablePromise, RelationType } from '@umbraco-cms/backend-api';
+import { CancelablePromise, ProblemDetails, RelationType, TemplateResource } from '@umbraco-cms/backend-api';
 import { UmbControllerHostInterface } from '@umbraco-cms/controller';
 import { tryExecuteAndNotify } from '@umbraco-cms/resources';
 import type { DataSourceResponse } from '@umbraco-cms/models';
@@ -22,7 +22,7 @@ export class UmbRelationTypeDetailServerDataSource implements RelationTypeDetail
 	constructor(host: UmbControllerHostInterface) {
 		this.#host = host;
 	}
-	get(key: string): Promise<DataSourceResponse<RelationType>> {
+	get(key: string) {
 		//TODO: Use resource when updated
 		return tryExecuteAndNotify(
 			this.#host,
@@ -35,7 +35,19 @@ export class UmbRelationTypeDetailServerDataSource implements RelationTypeDetail
 	update(relationTypes: RelationType): Promise<DataSourceResponse<undefined>> {
 		throw new Error('Method not implemented.');
 	}
-	delete(key: string): Promise<DataSourceResponse<undefined>> {
-		throw new Error('Method not implemented.');
+
+	async delete(key: string) {
+		if (!key) {
+			const error: ProblemDetails = { title: 'Key is missing' };
+			return { error };
+		}
+
+		return await tryExecuteAndNotify(
+			this.#host,
+			new CancelablePromise<any>((resolve) => {
+				umbRelationTypeData.delete([key]);
+				return resolve(undefined);
+			})
+		);
 	}
 }

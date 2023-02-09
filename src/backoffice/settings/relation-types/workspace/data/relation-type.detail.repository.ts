@@ -140,12 +140,8 @@ export class UmbRelationTypeDetailRepository {
 			this.#notificationService?.peek('positive', notification);
 		}
 
-		// TODO: we currently don't use the detail store for anything.
-		// Consider to look up the data before fetching from the server.
-		// Consider notify a workspace if a relation type is deleted from the store while someone is editing it.
 		this.#detailStore?.remove([key]);
 		this.#treeStore?.removeItem(key);
-		// TODO: would be nice to align the stores on methods/methodNames.
 
 		return { error };
 	}
