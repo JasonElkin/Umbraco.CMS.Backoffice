@@ -59,19 +59,6 @@ export class UmbRelationTypeDetailRepository {
 		}
 	}
 
-	async createScaffold(parentKey: string | null) {
-		await this.#init();
-
-		// TODO: should we show a notification if the parent key is missing?
-		// Investigate what is best for Acceptance testing, cause in that perspective a thrown error might be the best choice?
-		if (!parentKey) {
-			const error: ProblemDetails = { title: 'Parent key is missing' };
-			return { data: undefined, error };
-		}
-
-		return this.#dataSource.createScaffold(parentKey);
-	}
-
 	async get(key: string) {
 		await this.#init();
 

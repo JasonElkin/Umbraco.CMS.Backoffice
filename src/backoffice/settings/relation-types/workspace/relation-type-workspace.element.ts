@@ -26,11 +26,6 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 		this.#relationTypeWorkspaceContext.load(entityKey);
 	}
 
-	public create(parentKey: string | null) {
-		this.#isNew = true;
-		this.#relationTypeWorkspaceContext.createScaffold(parentKey);
-	}
-
 	@state()
 	private _name?: string | null = '';
 
@@ -41,6 +36,7 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 		super.connectedCallback();
 
 		this.observe(this.#relationTypeWorkspaceContext.name, (name) => {
+			console.log;
 			this._name = name;
 		});
 	}

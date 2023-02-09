@@ -39,6 +39,18 @@ const workspaceViews: Array<ManifestWorkspaceView> = [
 	},
 ];
 
-const workspaceActions: Array<ManifestWorkspaceAction> = [];
+const workspaceActions: Array<ManifestWorkspaceAction> = [
+	{
+		type: 'workspaceAction',
+		alias: 'Umb.WorkspaceAction.RelationType.Save',
+		name: 'Save Relation Type Workspace Action',
+		loader: () => import('src/backoffice/shared/components/workspace/actions/save/workspace-action-node-save.element'),
+		meta: {
+			workspaces: ['Umb.Workspace.RelationType'],
+			look: 'primary',
+			color: 'positive',
+		},
+	},
+];
 
 export const manifests = [workspace, ...workspaceViews, ...workspaceActions];

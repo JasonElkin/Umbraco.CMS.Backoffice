@@ -1,3 +1,4 @@
+import { umbRelationTypeData } from '../../../../../../core/mocks/data/relation-type.data';
 import { RelationTypeDetailDataSource } from '.';
 import { CancelablePromise, RelationType } from '@umbraco-cms/backend-api';
 import { UmbControllerHostInterface } from '@umbraco-cms/controller';
@@ -25,11 +26,8 @@ export class UmbRelationTypeDetailServerDataSource implements RelationTypeDetail
 		//TODO: Use resource when updated
 		return tryExecuteAndNotify(
 			this.#host,
-			new CancelablePromise<RelationType>((resolve) => resolve(MockData.find((x) => x.key === key)!))
+			new CancelablePromise<RelationType>((resolve) => resolve(umbRelationTypeData.getByKey(key)!))
 		);
-	}
-	createScaffold(parentKey: string | null): Promise<DataSourceResponse<RelationType>> {
-		throw new Error('Method not implemented.');
 	}
 	insert(relationTypes: RelationType): Promise<DataSourceResponse<undefined>> {
 		throw new Error('Method not implemented.');
@@ -41,10 +39,3 @@ export class UmbRelationTypeDetailServerDataSource implements RelationTypeDetail
 		throw new Error('Method not implemented.');
 	}
 }
-
-const MockData: Array<RelationType> = [
-	{
-		name: 'Related document on copy',
-		key: 'ajwhdawhdkjawhdkj',
-	},
-];

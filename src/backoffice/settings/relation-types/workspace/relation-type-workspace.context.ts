@@ -27,15 +27,10 @@ export class UmbRelationTypeWorkspaceContext {
 
 	async load(entityKey: string) {
 		const { data } = await this.#relationTypeDetailRepo.get(entityKey);
+		console.log('LOAD', entityKey, data);
 		if (data) {
 			this.#data.next(data);
 		}
-	}
-
-	async createScaffold(parentKey: string | null) {
-		const { data } = await this.#relationTypeDetailRepo.createScaffold(parentKey);
-		if (!data) return;
-		this.#data.next(data);
 	}
 
 	async save(isNew: boolean) {
