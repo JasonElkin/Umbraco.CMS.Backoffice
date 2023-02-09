@@ -50,8 +50,6 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 		this.observe(this.#workspaceContext.data, (relationType) => {
 			if (!relationType) return;
 			this._relationType = relationType as RelationType;
-
-			console.log('asdawdasjhdkjashdj', this._relationType);
 		});
 	}
 
@@ -64,33 +62,39 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 	}
 
 	render() {
-		if (!this._relationType) return nothing;
-
 		return html`
 			<uui-box>
 				<umb-workspace-property-layout label="Direction">
 					<uui-radio-group
-						value=${ifDefined(this._relationType.relationIsBidirectional)}
+						value=${ifDefined(this._relationType?.relationIsBidirectional)}
 						@change=${this.#handleDirectionChange}
 						slot="editor">
 						<uui-radio label="Parent to child" value="false"></uui-radio>
 						<uui-radio label="Bidirectional" value="true"></uui-radio>
 					</uui-radio-group>
 				</umb-workspace-property-layout>
-				<umb-workspace-property-layout label="Parent">
-					<div slot="editor">${this._relationType.relationParentName}</div>
-				</umb-workspace-property-layout>
-				<umb-workspace-property-layout label="Child">
-					<div slot="editor">${this._relationType.relationChildName}</div>
-				</umb-workspace-property-layout>
+				<umb-workspace-property-layout label="Parent">${this.#renderParentProperty()}</umb-workspace-property-layout>
+				<umb-workspace-property-layout label="Child"> ${this.#renderChildProperty()} </umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Is dependency">
 					<uui-toggle
 						slot="editor"
 						@change=${this.#handleIsDependencyChange}
-						.checked=${this._relationType.relationIsDependency ?? false}></uui-toggle>
+						.checked=${this._relationType?.relationIsDependency ?? false}></uui-toggle>
 				</umb-workspace-property-layout>
 			</uui-box>
 		`;
+	}
+
+	#renderParentProperty() {
+		if (this._relationType) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
+
+		return html`<uui-select slot="editor"></uui-select>`;
+	}
+
+	#renderChildProperty() {
+		if (this._relationType) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
+
+		return html`<uui-select slot="editor"></uui-select>`;
 	}
 }
 

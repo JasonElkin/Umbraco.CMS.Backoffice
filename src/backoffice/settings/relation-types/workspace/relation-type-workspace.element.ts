@@ -1,7 +1,7 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { UUIInputElement, UUITextareaElement } from '@umbraco-ui/uui';
+import { UUIInputElement } from '@umbraco-ui/uui';
 import { UmbRelationTypeWorkspaceContext } from './relation-type-workspace.context';
 import { UmbLitElement } from '@umbraco-cms/element';
 
@@ -55,7 +55,7 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 
 	render() {
 		return html`<umb-workspace-layout alias="Umb.Workspace.RelationType">
-			<uui-input id="header" slot="header" .value=${this._name} @input="${this.#onNameInput}"></uui-input>
+			<uui-input id="header" slot="header" .value=${this._name ?? ''} @input="${this.#onNameInput}"></uui-input>
 		</umb-workspace-layout>`;
 	}
 }
