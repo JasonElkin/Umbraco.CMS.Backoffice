@@ -1,13 +1,15 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
-import { css, html } from 'lit';
+import { css, html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { UUIBooleanInputEvent } from '@umbraco-ui/uui';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { UmbLitElement } from '@umbraco-cms/element';
-import type { RelationTypeDetails } from '@umbraco-cms/models';
 
 import '../../../../../shared/property-editors/shared/property-editor-config/property-editor-config.element';
 import '../../../../../shared/components/ref-property-editor-ui/ref-property-editor-ui.element';
+import { RelationType } from '@umbraco-cms/backend-api';
+import { UmbRelationTypeWorkspaceContext } from '../../relation-type-workspace.context';
+import { UmbModalService, UMB_MODAL_SERVICE_CONTEXT_TOKEN } from '@umbraco-cms/modal';
 
 @customElement('umb-relation-type-workspace-view-edit')
 export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
@@ -22,26 +24,35 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 	];
 
 	@state()
-	private _relationType?: RelationTypeDetails = {
-		key: '',
-		parent: '',
-		child: '',
-		direction: 'parent-to-child',
-		isDependency: true,
-		data: [],
-	};
+	private _relationType?: RelationType;
 
-	//TODO: Get the relation type from the database
-	//TODO: Is a workspace context necessary here? This view is readonly and should not be able to change the relation type.
+	#workspaceContext?: UmbRelationTypeWorkspaceContext;
+	#modalService?: UmbModalService;
 
-	get #parent() {
-		//TODO: Return the parent from the parent key
-		return 'Document';
+	constructor() {
+		super();
+
+		this.consumeContext(UMB_MODAL_SERVICE_CONTEXT_TOKEN, (instance) => {
+			this.#modalService = instance;
+		});
+
+		this.consumeContext<UmbRelationTypeWorkspaceContext>('umbWorkspaceContext', (instance) => {
+			this.#workspaceContext = instance;
+			this._observeRelationType();
+		});
 	}
 
-	get #child() {
-		//TODO: Return the child from the parent key
-		return 'Document';
+	private _observeRelationType() {
+		if (!this.#workspaceContext) {
+			return;
+		}
+
+		this.observe(this.#workspaceContext.data, (relationType) => {
+			if (!relationType) return;
+			this._relationType = relationType as RelationType;
+
+			console.log('asdawdasjhdkjashdj', this._relationType);
+		});
 	}
 
 	#handleDirectionChange(e: UUIBooleanInputEvent) {
@@ -53,28 +64,30 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 	}
 
 	render() {
+		if (!this._relationType) return nothing;
+
 		return html`
 			<uui-box>
 				<umb-workspace-property-layout label="Direction">
 					<uui-radio-group
-						value=${ifDefined(this._relationType?.direction)}
+						value=${ifDefined(this._relationType.relationIsBidirectional)}
 						@change=${this.#handleDirectionChange}
 						slot="editor">
-						<uui-radio label="Parent to child" value="parent-to-child"></uui-radio>
-						<uui-radio label="Bidirectional" value="bidirectional"></uui-radio>
+						<uui-radio label="Parent to child" value="false"></uui-radio>
+						<uui-radio label="Bidirectional" value="true"></uui-radio>
 					</uui-radio-group>
 				</umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Parent">
-					<div slot="editor">${this.#parent}</div>
+					<div slot="editor">${this._relationType.relationParentName}</div>
 				</umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Child">
-					<div slot="editor">${this.#child}</div>
+					<div slot="editor">${this._relationType.relationChildName}</div>
 				</umb-workspace-property-layout>
 				<umb-workspace-property-layout label="Is dependency">
 					<uui-toggle
 						slot="editor"
 						@change=${this.#handleIsDependencyChange}
-						value=${ifDefined(this._relationType?.isDependency)}></uui-toggle>
+						.checked=${this._relationType.relationIsDependency ?? false}></uui-toggle>
 				</umb-workspace-property-layout>
 			</uui-box>
 		`;

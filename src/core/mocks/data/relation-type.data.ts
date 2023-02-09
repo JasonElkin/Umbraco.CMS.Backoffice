@@ -10,6 +10,10 @@ const createRelationType = (dbItem: RelationTypeDBItem): RelationType => {
 		key: dbItem.key,
 		name: dbItem.name,
 		alias: dbItem.alias,
+		relationIsBidirectional: dbItem.relationIsBidirectional,
+		relationIsDependency: dbItem.relationIsDependency,
+		relationParentName: dbItem.relationParentName,
+		relationChildName: dbItem.relationChildName,
 	};
 };
 
@@ -20,6 +24,10 @@ export const data: Array<RelationTypeDBItem> = [
 		alias: 'RT-01',
 		type: 'relation-type',
 		parentKey: null,
+		relationIsBidirectional: false,
+		relationIsDependency: false,
+		relationParentName: 'PARENT NAME HERE',
+		relationChildName: 'CHILD NAME HERE',
 	},
 	{
 		name: 'It actually does lol',
@@ -27,6 +35,10 @@ export const data: Array<RelationTypeDBItem> = [
 		alias: 'RT-02',
 		type: 'relation-type',
 		parentKey: null,
+		relationIsBidirectional: true,
+		relationIsDependency: true,
+		relationParentName: 'PARENT NAME HERE',
+		relationChildName: 'CHILD NAME HERE',
 	},
 ];
 

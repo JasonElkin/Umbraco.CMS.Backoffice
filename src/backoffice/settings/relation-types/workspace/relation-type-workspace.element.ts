@@ -35,6 +35,8 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 	async connectedCallback() {
 		super.connectedCallback();
 
+		this.provideContext('umbWorkspaceContext', this.#relationTypeWorkspaceContext);
+
 		this.observe(this.#relationTypeWorkspaceContext.name, (name) => {
 			console.log;
 			this._name = name;
