@@ -77,21 +77,6 @@ export interface DataTypePropertyData {
 	value: any;
 }
 
-// Relation Types
-export interface RelationTypeDetails extends FolderTreeItem {
-	key: string;
-	data: Array<RelationTypePropertyData>;
-	parent?: string;
-	child?: string;
-	direction?: 'parent-to-child' | 'bidirectional';
-	isDependency?: boolean;
-}
-
-export interface RelationTypePropertyData {
-	alias: string;
-	value: any;
-}
-
 // Document Types
 export interface DocumentTypeDetails extends DocumentTypeTreeItem {
 	key: string; // TODO: Remove this when the backend is fixed

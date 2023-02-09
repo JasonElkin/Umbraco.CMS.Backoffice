@@ -1,42 +1,76 @@
+import { v4 as uuid } from 'uuid';
 import { UmbEntityData } from './entity.data';
-import { createFolderTreeItem } from './utils';
-import { FolderTreeItem } from '@umbraco-cms/backend-api';
-import type { RelationTypeDetails } from '@umbraco-cms/models';
+import { createEntityTreeItem } from './utils';
+import { EntityTreeItem, PagedEntityTreeItem, RelationType } from '@umbraco-cms/backend-api';
 
-export const data: Array<RelationTypeDetails> = [
+type RelationTypeDBItem = RelationType & EntityTreeItem;
+
+const createRelationType = (dbItem: RelationTypeDBItem): RelationType => {
+	return {
+		key: dbItem.key,
+		name: dbItem.name,
+		alias: dbItem.alias,
+	};
+};
+
+export const data: Array<RelationTypeDBItem> = [
 	{
-		name: 'Related document on copy',
+		name: 'It works???',
+		key: '2bf4abb6-3aca-1588-b043-4eb439cc2643',
+		alias: 'RT-01',
 		type: 'relation-type',
-		key: '1209312jh31i2uh3i1u2h3',
 		parentKey: null,
-		parent: 'Document',
-		child: 'Document',
-		direction: 'Parent to child',
-		isDependency: false,
-		data: [],
+	},
+	{
+		name: 'It actually does lol',
+		key: '21hdabb6-3aca-1588-b043-4eb439cc2643',
+		alias: 'RT-02',
+		type: 'relation-type',
+		parentKey: null,
 	},
 ];
 
+// Temp mocked database
+// TODO: all properties are optional in the server schema. I don't think this is correct.
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-class UmbRelationTypeData extends UmbEntityData<RelationTypeDetails> {
+class UmbRelationTypeData extends UmbEntityData<RelationTypeDBItem> {
 	constructor() {
 		super(data);
 	}
 
-	getTreeRoot(): Array<FolderTreeItem> {
-		const rootItems = this.data.filter((item) => item.parentKey === null);
-		return rootItems.map((item) => createFolderTreeItem(item));
+	getByKey(key: string): RelationType | undefined {
+		const item = this.data.find((item) => item.key === key);
+		return item ? createRelationType(item) : undefined;
 	}
 
-	getTreeItemChildren(key: string): Array<FolderTreeItem> {
-		const childItems = this.data.filter((item) => item.parentKey === key);
-		return childItems.map((item) => createFolderTreeItem(item));
+	//TODO: add model
+	create(relationTypeData: any) {
+		const relationType = {
+			key: uuid(),
+			...relationTypeData,
+		};
+		this.data.push(relationType);
+		return relationType;
 	}
 
-	getTreeItem(keys: Array<string>): Array<FolderTreeItem> {
+	getTreeRoot(): PagedEntityTreeItem {
+		const items = this.data.filter((item) => item.parentKey === null);
+		const treeItems = items.map((item) => createEntityTreeItem(item));
+		const total = items.length;
+		return { items: treeItems, total };
+	}
+
+	getTreeItemChildren(key: string): PagedEntityTreeItem {
+		const items = this.data.filter((item) => item.parentKey === key);
+		const treeItems = items.map((item) => createEntityTreeItem(item));
+		const total = items.length;
+		return { items: treeItems, total };
+	}
+
+	getTreeItem(keys: Array<string>): Array<EntityTreeItem> {
 		const items = this.data.filter((item) => keys.includes(item.key ?? ''));
-		return items.map((item) => createFolderTreeItem(item));
+		return items.map((item) => createEntityTreeItem(item));
 	}
 }
 

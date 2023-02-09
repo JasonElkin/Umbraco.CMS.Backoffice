@@ -122,6 +122,7 @@ export type { RedirectUrl } from './models/RedirectUrl';
 export type { RedirectUrlStatus } from './models/RedirectUrlStatus';
 export type { Relation } from './models/Relation';
 export type { RelationItem } from './models/RelationItem';
+export type { RelationType } from './models/RelationType';
 export type { RuntimeFieldHandle } from './models/RuntimeFieldHandle';
 export { RuntimeLevel } from './models/RuntimeLevel';
 export type { RuntimeMethodHandle } from './models/RuntimeMethodHandle';
