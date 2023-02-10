@@ -46,7 +46,7 @@ export class UmbRelationTypeWorkspaceElement extends UmbLitElement {
 	#onNameInput(event: Event) {
 		const target = event.target as UUIInputElement;
 		const value = target.value as string;
-		this.#relationTypeWorkspaceContext.setName(value);
+		this.#relationTypeWorkspaceContext.update('name', value);
 	}
 
 	#onSave() {

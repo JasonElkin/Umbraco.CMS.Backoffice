@@ -1,7 +1,7 @@
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { css, html, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { UUIBooleanInputEvent } from '@umbraco-ui/uui';
+import { UUIBooleanInputEvent, UUIRadioGroupElement, UUIRadioGroupEvent, UUIToggleElement } from '@umbraco-ui/uui';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { UmbLitElement } from '@umbraco-cms/element';
 
@@ -53,12 +53,16 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 		});
 	}
 
-	#handleDirectionChange(e: UUIBooleanInputEvent) {
-		//TODO handle direction change
+	#handleDirectionChange(event: UUIRadioGroupEvent) {
+		const target = event.target as UUIRadioGroupElement;
+		const value = target.value === 'true';
+		this.#workspaceContext?.update('relationIsBidirectional', value);
 	}
 
-	#handleIsDependencyChange(e: UUIBooleanInputEvent) {
-		//TODO handle isDependency change
+	#handleIsDependencyChange(event: UUIBooleanInputEvent) {
+		const target = event.target as UUIToggleElement;
+		const value = target.checked;
+		this.#workspaceContext?.update('relationIsDependency', value);
 	}
 
 	render() {
@@ -86,13 +90,13 @@ export class UmbRelationTypeWorkspaceViewEditElement extends UmbLitElement {
 	}
 
 	#renderParentProperty() {
-		if (this._relationType) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
+		if (this._relationType?.key) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
 
 		return html`<uui-select slot="editor"></uui-select>`;
 	}
 
 	#renderChildProperty() {
-		if (this._relationType) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
+		if (this._relationType?.key) return html`<div slot="editor">${this._relationType.relationParentName}</div>`;
 
 		return html`<uui-select slot="editor"></uui-select>`;
 	}
