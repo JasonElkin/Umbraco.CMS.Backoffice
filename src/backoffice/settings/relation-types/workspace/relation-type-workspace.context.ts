@@ -17,12 +17,8 @@ export class UmbRelationTypeWorkspaceContext {
 		this.#relationTypeDetailRepo = new UmbRelationTypeDetailRepository(this.#host);
 	}
 
-	setName(value: string) {
-		this.#data.next({ ...this.#data.value, name: value });
-	}
-
-	setContent(value: string) {
-		this.#data.next({ ...this.#data.value, content: value });
+	update<K extends keyof RelationType>(key: K, value: RelationType[K]) {
+		this.#data.next({ ...this.#data.value, [key]: value });
 	}
 
 	async load(entityKey: string) {
