@@ -31,9 +31,10 @@ export class UmbRelationTypeWorkspaceContext {
 
 	async save(isNew: boolean) {
 		if (!this.#data.value) return;
-		isNew
-			? this.#relationTypeDetailRepo.insert(this.#data.value)
-			: this.#relationTypeDetailRepo.update(this.#data.value);
+
+		this.#data.value.key
+			? this.#relationTypeDetailRepo.update(this.#data.value)
+			: this.#relationTypeDetailRepo.insert(this.#data.value);
 	}
 
 	async delete(key: string) {

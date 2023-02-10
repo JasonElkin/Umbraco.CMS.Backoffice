@@ -53,13 +53,14 @@ class UmbRelationTypeData extends UmbEntityData<RelationTypeDBItem> {
 
 	getByKey(key: string): RelationType | undefined {
 		const item = this.data.find((item) => item.key === key);
+		console.log('ITEM', item, 'DATA', this.data);
 		return item ? createRelationType(item) : undefined;
 	}
 
-	//TODO: add model
 	create(relationTypeData: any) {
 		const relationType = {
 			key: uuid(),
+			parentKey: null,
 			...relationTypeData,
 		};
 		this.data.push(relationType);

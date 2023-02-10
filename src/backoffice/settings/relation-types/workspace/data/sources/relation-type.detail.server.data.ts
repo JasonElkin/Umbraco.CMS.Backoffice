@@ -29,8 +29,14 @@ export class UmbRelationTypeDetailServerDataSource implements RelationTypeDetail
 			new CancelablePromise<RelationType>((resolve) => resolve(umbRelationTypeData.getByKey(key)!))
 		);
 	}
-	insert(relationTypes: RelationType): Promise<DataSourceResponse<undefined>> {
-		throw new Error('Method not implemented.');
+	async insert(relationTypes: RelationType): Promise<DataSourceResponse<undefined>> {
+		return await tryExecuteAndNotify(
+			this.#host,
+			new CancelablePromise<any>((resolve) => {
+				umbRelationTypeData.create(relationTypes);
+				return resolve(undefined);
+			})
+		);
 	}
 	async update(relationTypes: RelationType): Promise<DataSourceResponse<undefined>> {
 		return await tryExecuteAndNotify(
