@@ -1,5 +1,7 @@
 import { html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import { startCase } from 'lodash-es';
+
 import { isManifestElementNameType, umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
 import type { ManifestBase } from '@umbraco-cms/models';
 import { UmbLitElement } from '@umbraco-cms/element';
@@ -8,7 +10,13 @@ import { UmbModalService, UMB_MODAL_SERVICE_CONTEXT_TOKEN } from '@umbraco-cms/m
 @customElement('umb-extension-root-workspace')
 export class UmbExtensionRootWorkspaceElement extends UmbLitElement {
 	@state()
-	private _extensions?: Array<ManifestBase> = undefined;
+	private _extensions: Array<ManifestBase> = [];
+
+	@state()
+	private _filteredExtensions: Array<ManifestBase> = [];
+
+	@state()
+	private _categories: Array<string> = [];
 
 	private _modalService?: UmbModalService;
 
@@ -23,7 +31,10 @@ export class UmbExtensionRootWorkspaceElement extends UmbLitElement {
 
 	private _observeExtensions() {
 		this.observe(umbExtensionsRegistry.extensionsSortedByTypeAndWeight(), (extensions) => {
-			this._extensions = extensions || undefined;
+			this._extensions = extensions || [];
+			this._filteredExtensions = extensions || [];
+			this._categories = extensions.map((extension) => extension.type);
+			this._categories = [...new Set(this._categories)];
 		});
 	}
 
@@ -42,9 +53,18 @@ export class UmbExtensionRootWorkspaceElement extends UmbLitElement {
 		});
 	}
 
+	#onClick(event: PointerEvent) {
+		console.log('click');
+		this._filteredExtensions = this._extensions.filter((extension) => extension.type === 'section');
+	}
+
 	render() {
 		return html`
 			<umb-workspace-layout headline="Extensions" alias="Umb.Workspace.ExtensionRoot">
+				<div>
+					Categories:
+					${this._categories.map((category) => html`<button @click=${this.#onClick}>${startCase(category)}</button>`)}
+				</div>
 				<uui-box>
 					<uui-table>
 						<uui-table-head>
@@ -55,14 +75,12 @@ export class UmbExtensionRootWorkspaceElement extends UmbLitElement {
 							<uui-table-head-cell>Actions</uui-table-head-cell>
 						</uui-table-head>
 
-						${this._extensions?.map(
+						${this._filteredExtensions.map(
 							(extension) => html`
 								<uui-table-row>
 									<uui-table-cell>${extension.type}</uui-table-cell>
 									<uui-table-cell>${extension.weight ? extension.weight : 'Not Set'} </uui-table-cell>
-									<uui-table-cell>
-										${isManifestElementNameType(extension) ? extension.name : `[Custom extension] ${extension.name}`}
-									</uui-table-cell>
+									<uui-table-cell>${extension.name}</uui-table-cell>
 									<uui-table-cell>${extension.alias}</uui-table-cell>
 									<uui-table-cell>
 										<uui-button
