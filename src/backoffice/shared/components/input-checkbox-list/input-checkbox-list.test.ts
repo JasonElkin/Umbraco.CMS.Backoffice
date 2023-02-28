@@ -1,16 +1,16 @@
 import { expect, fixture, html } from '@open-wc/testing';
-import { UmbInputColorPickerElement } from './input-color-picker.element';
+import { UmbInputCheckboxListElement } from './input-checkbox-list.element';
 import { defaultA11yConfig } from '@umbraco-cms/test-utils';
 //TODO: Test has been commented out while we figure out how to setup import maps for the test environment
-// describe('UmbInputColorPickerElement', () => {
-// 	let element: UmbInputColorPickerElement;
+// describe('UmbInputCheckboxListElement', () => {
+// 	let element: UmbInputCheckboxListElement;
 
 // 	beforeEach(async () => {
-// 		element = await fixture(html` <umb-input-color-picker></umb-input-color-picker> `);
+// 		element = await fixture(html` <umb-input-checkbox-list></umb-input-checkbox-list> `);
 // 	});
 
 // 	it('is defined with its own instance', () => {
-// 		expect(element).to.be.instanceOf(UmbInputColorPickerElement);
+// 		expect(element).to.be.instanceOf(UmbInputCheckboxListElement);
 // 	});
 
 // 	it('passes the a11y audit', async () => {
