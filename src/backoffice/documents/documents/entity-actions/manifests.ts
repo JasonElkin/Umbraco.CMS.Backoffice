@@ -1,3 +1,4 @@
+import { DOCUMENT_ENTITY_TYPE } from '..';
 import { UmbCreateDocumentEntityAction } from './create.action';
 import { UmbPublishDocumentEntityAction } from './publish.action';
 import { UmbDocumentCultureAndHostnamesEntityAction } from './culture-and-hostnames.action';
@@ -14,7 +15,6 @@ import {
 } from '@umbraco-cms/entity-action';
 import { ManifestEntityAction } from '@umbraco-cms/extensions-registry';
 
-const entityType = 'document';
 const repositoryAlias = 'Umb.Repository.Documents';
 
 const entityActions: Array<ManifestEntityAction> = [
@@ -24,7 +24,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Create Document Entity Action',
 		weight: 1000,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:add',
 			label: 'Create',
 			repositoryAlias,
@@ -37,7 +37,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Trash Document Entity Action',
 		weight: 900,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:trash',
 			label: 'Trash',
 			repositoryAlias,
@@ -50,7 +50,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Create Document Blueprint Entity Action',
 		weight: 800,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:blueprint',
 			label: 'Create Content Template',
 			repositoryAlias,
@@ -63,7 +63,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Move Document Entity Action',
 		weight: 700,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:enter',
 			label: 'Move',
 			repositoryAlias,
@@ -76,7 +76,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Copy Document Entity Action',
 		weight: 600,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:documents',
 			label: 'Copy',
 			repositoryAlias,
@@ -89,7 +89,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Sort Document Entity Action',
 		weight: 500,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:navigation-vertical',
 			label: 'Sort',
 			repositoryAlias,
@@ -102,7 +102,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		name: 'Culture And Hostnames Document Entity Action',
 		weight: 400,
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:home',
 			label: 'Culture And Hostnames',
 			repositoryAlias,
@@ -114,7 +114,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.Permissions',
 		name: 'Document Permissions Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:vcard',
 			label: 'Permissions',
 			repositoryAlias,
@@ -126,7 +126,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.PublicAccess',
 		name: 'Document Permissions Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:lock',
 			label: 'Public Access',
 			repositoryAlias,
@@ -138,7 +138,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.Publish',
 		name: 'Publish Document Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:globe',
 			label: 'Publish',
 			repositoryAlias,
@@ -150,7 +150,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.Publish',
 		name: 'Publish Document Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:globe',
 			label: 'Publish',
 			repositoryAlias,
@@ -162,7 +162,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.Unpublish',
 		name: 'Unpublish Document Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:globe',
 			label: 'Unpublish',
 			repositoryAlias,
@@ -174,7 +174,7 @@ const entityActions: Array<ManifestEntityAction> = [
 		alias: 'Umb.EntityAction.Document.Rollback',
 		name: 'Rollback Document Entity Action',
 		meta: {
-			entityType,
+			entityType: DOCUMENT_ENTITY_TYPE,
 			icon: 'umb:undo',
 			label: 'Rollback',
 			repositoryAlias,

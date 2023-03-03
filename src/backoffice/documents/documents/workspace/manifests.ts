@@ -9,6 +9,7 @@ import type {
 	ManifestWorkspaceView,
 	ManifestWorkspaceViewCollection,
 } from '@umbraco-cms/models';
+import { DOCUMENT_ENTITY_TYPE } from '..';
 
 const workspace: ManifestWorkspace = {
 	type: 'workspace',
@@ -16,7 +17,7 @@ const workspace: ManifestWorkspace = {
 	name: 'Document Workspace',
 	loader: () => import('./document-workspace.element'),
 	meta: {
-		entityType: 'document',
+		entityType: DOCUMENT_ENTITY_TYPE,
 	},
 };
 

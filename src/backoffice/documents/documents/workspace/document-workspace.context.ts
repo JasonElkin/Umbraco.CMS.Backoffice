@@ -7,6 +7,7 @@ import { UmbWorkspacePropertyStructureManager } from '../../../shared/components
 import type { DocumentModel } from '@umbraco-cms/backend-api';
 import { partialUpdateFrozenArray, ObjectState, ArrayState, UmbObserverController } from '@umbraco-cms/observable-api';
 import { UmbControllerHostInterface } from '@umbraco-cms/controller';
+import { DOCUMENT_ENTITY_TYPE } from '..';
 
 // TODO: should this context be called DocumentDraft instead of workspace? or should the draft be part of this?
 
@@ -87,7 +88,7 @@ export class UmbDocumentWorkspaceContext
 	}
 
 	getEntityType() {
-		return 'document';
+		return DOCUMENT_ENTITY_TYPE;
 	}
 
 	setActiveVariant(index: number, culture: string | null, segment: string | null) {

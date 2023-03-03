@@ -1,4 +1,5 @@
 import { ManifestCollectionView } from '@umbraco-cms/extensions-registry';
+import { DOCUMENT_ENTITY_TYPE } from '..';
 
 export const manifests: Array<ManifestCollectionView> = [
 	{
@@ -10,7 +11,7 @@ export const manifests: Array<ManifestCollectionView> = [
 		meta: {
 			label: 'Table',
 			icon: 'umb:box',
-			entityType: 'document',
+			entityType: DOCUMENT_ENTITY_TYPE,
 			pathName: 'table',
 		},
 	},
