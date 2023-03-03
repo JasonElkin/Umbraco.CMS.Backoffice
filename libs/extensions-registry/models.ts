@@ -16,6 +16,7 @@ import type { ManifestMenu } from './menu.models';
 import type { ManifestMenuItem } from './menu-item.models';
 import type { ManifestTheme } from './theme.models';
 import type { ManifestTree } from './tree.models';
+import type { ManifestTreeItemLabel } from './tree-item-label.models';
 import type { ManifestTreeItemAction } from './tree-item-action.models';
 import type { ManifestUserDashboard } from './user-dashboard.models';
 import type { ManifestWorkspace } from './workspace.models';
@@ -44,6 +45,7 @@ export * from './menu-item.models';
 export * from './theme.models';
 export * from './tree-item-action.models';
 export * from './tree.models';
+export * from './tree-item-label.models';
 export * from './user-dashboard.models';
 export * from './workspace-action.models';
 export * from './workspace-view-collection.models';
@@ -75,6 +77,7 @@ export type ManifestTypes =
 	| ManifestMenuItem
 	| ManifestTheme
 	| ManifestTree
+	| ManifestTreeItemLabel
 	| ManifestTreeItemAction
 	| ManifestUserDashboard
 	| ManifestWorkspace
