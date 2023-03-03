@@ -1,7 +1,7 @@
 import type { ManifestElement } from './models';
 
 export interface ManifestTreeItemLabel extends ManifestElement {
-	type: 'treeItem';
+	type: 'treeItemLabel';
 	meta: MetaTreeItemLabel;
 }
 

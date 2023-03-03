@@ -13,6 +13,8 @@ import './context-menu/tree-context-menu-page.service';
 import './context-menu/tree-context-menu.service';
 import './action/tree-item-action-extension.element';
 
+import '../../../documents/documents/tree/item-label/document-tree-item-label.element';
+
 @customElement('umb-tree')
 export class UmbTreeElement extends UmbLitElement {
 	private _alias = '';
@@ -24,7 +26,7 @@ export class UmbTreeElement extends UmbLitElement {
 		const oldVal = this._alias;
 		this._alias = newVal;
 		this.requestUpdate('alias', oldVal);
-		this._observeTree();
+		this.#observeTree();
 	}
 
 	private _selectable = false;
@@ -36,7 +38,7 @@ export class UmbTreeElement extends UmbLitElement {
 		const oldVal = this._selectable;
 		this._selectable = newVal;
 		this.requestUpdate('selectable', oldVal);
-		this._treeContext?.setSelectable(newVal);
+		this.#treeContext?.setSelectable(newVal);
 	}
 
 	private _selection: Array<string> = [];
@@ -48,7 +50,7 @@ export class UmbTreeElement extends UmbLitElement {
 		const oldVal = this._selection;
 		this._selection = newVal;
 		this.requestUpdate('selection', oldVal);
-		this._treeContext?.setSelection(newVal);
+		this.#treeContext?.setSelection(newVal);
 	}
 
 	@state()
@@ -60,13 +62,9 @@ export class UmbTreeElement extends UmbLitElement {
 	@state()
 	private _loading = true;
 
-	private _treeContext?: UmbTreeContextBase;
+	#treeContext?: UmbTreeContextBase;
 
-	protected firstUpdated(): void {
-		this._observeTree();
-	}
-
-	private _observeTree() {
+	#observeTree() {
 		if (!this.alias) return;
 
 		this.observe(
@@ -82,33 +80,33 @@ export class UmbTreeElement extends UmbLitElement {
 	}
 
 	#provideTreeContext() {
-		if (!this._tree || this._treeContext) return;
+		if (!this._tree || this.#treeContext) return;
 
 		// TODO: if a new tree comes around, which is different, then we should clean up and re provide.
-		this._treeContext = new UmbTreeContextBase(this, this._tree);
-		this._treeContext.setSelectable(this.selectable);
-		this._treeContext.setSelection(this.selection);
+		this.#treeContext = new UmbTreeContextBase(this, this._tree);
+		this.#treeContext.setSelectable(this.selectable);
+		this.#treeContext.setSelection(this.selection);
 
 		this.#observeSelection();
 		this.#observeTreeRoot();
 
-		this.provideContext('umbTreeContext', this._treeContext);
+		this.provideContext('umbTreeContext', this.#treeContext);
 	}
 
 	async #observeTreeRoot() {
-		if (!this._treeContext?.requestRootItems) return;
+		if (!this.#treeContext?.requestRootItems) return;
 
-		this._treeContext.requestRootItems();
+		this.#treeContext.requestRootItems();
 
-		this.observe(await this._treeContext.rootItems(), (rootItems) => {
+		this.observe(await this.#treeContext.rootItems(), (rootItems) => {
 			this._items = rootItems as Entity[];
 		});
 	}
 
 	#observeSelection() {
-		if (!this._treeContext) return;
+		if (!this.#treeContext) return;
 
-		this.observe(this._treeContext.selection, (selection) => {
+		this.observe(this.#treeContext.selection, (selection) => {
 			if (this._selection === selection) return;
 			this._selection = selection;
 			this.dispatchEvent(new CustomEvent('selected'));
@@ -122,12 +120,14 @@ export class UmbTreeElement extends UmbLitElement {
 				(item) => item.key,
 				(item) =>
 					html`<umb-tree-item
+						.item=${item}
 						.key=${item.key}
 						.label=${item.name}
 						.icon=${item.icon}
 						.entityType=${item.type}
 						.hasChildren=${item.hasChildren}
-						.loading=${this._loading}></umb-tree-item>`
+						.loading=${this._loading}>
+					</umb-tree-item> `
 			)}
 		`;
 	}

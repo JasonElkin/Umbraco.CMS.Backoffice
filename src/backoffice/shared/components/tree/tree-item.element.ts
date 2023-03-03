@@ -13,7 +13,7 @@ import type { UmbTreeContextBase } from './tree.context';
 import type { Entity } from '@umbraco-cms/models';
 import type { UmbTreeStore } from '@umbraco-cms/store';
 import { UmbLitElement } from '@umbraco-cms/element';
-import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
+import { createExtensionElement, umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
 
 @customElement('umb-tree-item')
 export class UmbTreeItem extends UmbLitElement {
@@ -31,6 +31,9 @@ export class UmbTreeItem extends UmbLitElement {
 	@property({ type: String })
 	icon = '';
 
+	@property({ type: Object, attribute: false })
+	item?: unknown;
+
 	private _entityType = '';
 	@property({ type: String })
 	get entityType() {
@@ -41,6 +44,7 @@ export class UmbTreeItem extends UmbLitElement {
 		this._entityType = newVal;
 		this.requestUpdate('entityType', oldVal);
 		this._observeTreeItemActions();
+		this._observeTreeItemLabel();
 	}
 
 	@property({ type: Boolean, attribute: 'has-children' })
@@ -66,6 +70,9 @@ export class UmbTreeItem extends UmbLitElement {
 
 	@state()
 	private _hasActions = false;
+
+	@state()
+	private _labelElement?: any;
 
 	private _treeContext?: UmbTreeContextBase;
 	private _store?: UmbTreeStore<unknown>;
@@ -160,6 +167,23 @@ export class UmbTreeItem extends UmbLitElement {
 		);
 	}
 
+	private _observeTreeItemLabel() {
+		// TODO: Stop previous observation, currently we can do this from the UmbElementMixin as its a new subscription when Actions or entityType has changed.
+		// Solution: store the current observation controller and if it existing then destroy it.
+		// TODO: as long as a tree consist of one entity type we don't have to observe this every time a new tree item is created.
+		// Solution: move this to the tree context and observe it once.
+		this.observe(
+			umbExtensionsRegistry
+				.extensionsOfType('treeItemLabel')
+				.pipe(map((labels) => labels.find((label) => label.meta.entityType === this._entityType))),
+			async (label) => {
+				if (!label) return;
+				this._labelElement = await createExtensionElement(label);
+				this._labelElement.item = this.item;
+			}
+		);
+	}
+
 	// TODO: how do we handle this?
 	private _constructPath(sectionPathname: string, type: string, key: string) {
 		return type ? `section/${sectionPathname}/${type}/edit/${key}` : undefined;
@@ -224,12 +248,18 @@ export class UmbTreeItem extends UmbLitElement {
 				label="${this.label}"
 				href="${ifDefined(this._href)}"
 				?active=${this._isActive}>
-				${this._renderChildItems()}
-				<uui-icon slot="icon" name="${this.icon}"></uui-icon>
-				${this._renderActions()}
+				${this.#renderIcon()}${this.#renderLabel()} ${this._renderActions()}${this._renderChildItems()}
 				<slot></slot>
 			</uui-menu-item>
 		`;
+	}
+
+	#renderLabel() {
+		return html` <div slot="label">${this._labelElement || this.label}</div>`;
+	}
+
+	#renderIcon() {
+		return html` <uui-icon slot="icon" name="${this.icon}"></uui-icon> `;
 	}
 
 	private _renderChildItems() {
@@ -240,6 +270,7 @@ export class UmbTreeItem extends UmbLitElement {
 						(item) => item.key,
 						(item) =>
 							html`<umb-tree-item
+								.item=${item}
 								.key=${item.key}
 								.label=${item.name}
 								.icon=${item.icon}

@@ -41,13 +41,11 @@ export const createContentTreeItem = (item: any): ContentTreeItemModel & { isTra
 export const createDocumentTreeItem = (item: DocumentModel): DocumentTreeItemModel & { isTrashed: boolean } => {
 	return {
 		...createContentTreeItem(item),
-		/*
 		noAccess: item.noAccess,
 		isProtected: item.isProtected,
 		isPublished: item.isPublished,
 		isEdited: item.isEdited,
 		isTrashed: item.isTrashed,
-		*/
 	};
 };
 
