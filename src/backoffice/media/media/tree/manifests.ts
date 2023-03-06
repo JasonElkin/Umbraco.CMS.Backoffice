@@ -1,6 +1,6 @@
 import { UmbMediaRepository } from '../repository/media.repository';
 import { MEDIA_ENTITY_TYPE } from '../';
-import type { ManifestTree, ManifestTreeItem, ManifestTreeItemAction } from '@umbraco-cms/models';
+import type { ManifestTree, ManifestTreeItem } from '@umbraco-cms/models';
 
 const treeAlias = 'Umb.Tree.Media';
 
@@ -14,7 +14,7 @@ const tree: ManifestTree = {
 };
 
 const treeItem: ManifestTreeItem = {
-	type: 'treeItemLabel',
+	type: 'treeItem',
 	alias: 'Umb.TreeItem.Media',
 	name: 'Media Tree Item',
 	loader: () => import('./item-label/media-tree-item-label.element'),
@@ -23,6 +23,4 @@ const treeItem: ManifestTreeItem = {
 	},
 };
 
-const treeItemActions: Array<ManifestTreeItemAction> = [];
-
-export const manifests = [tree, treeItem, ...treeItemActions];
+export const manifests = [tree, treeItem];

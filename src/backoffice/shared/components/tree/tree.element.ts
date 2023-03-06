@@ -10,10 +10,8 @@ import { TreeItemModel } from '@umbraco-cms/backend-api';
 
 import './tree-item/tree-item-base/tree-item-base.element';
 import './tree-item/entity-tree-item/entity-tree-item.element';
-import './context-menu/tree-context-menu-page-action-list.element';
 import './context-menu/tree-context-menu-page.service';
 import './context-menu/tree-context-menu.service';
-import './action/tree-item-action-extension.element';
 
 import '../../../documents/documents/tree/item/document-tree-item.element';
 
