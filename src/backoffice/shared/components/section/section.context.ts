@@ -1,11 +1,11 @@
 import type { Entity, ManifestSection, ManifestSectionView } from '@umbraco-cms/models';
 import { ObjectState, StringState } from '@umbraco-cms/observable-api';
 import { UmbContextToken } from '@umbraco-cms/context-api';
+import { TreeItemModel } from '@umbraco-cms/backend-api';
 
 export type ActiveTreeItemType = Entity | undefined;
 
 export class UmbSectionContext {
-
 	#manifestAlias = new StringState<string | undefined>(undefined);
 	#manifestPathname = new StringState<string | undefined>(undefined);
 	#manifestLabel = new StringState<string | undefined>(undefined);
@@ -20,7 +20,7 @@ export class UmbSectionContext {
 	*/
 
 	// TODO: what is the best context to put this in?
-	#activeTreeItem = new ObjectState<ActiveTreeItemType | undefined>(undefined);
+	#activeTreeItem = new ObjectState<TreeItemModel | undefined>(undefined);
 	public readonly activeTreeItem = this.#activeTreeItem.asObservable();
 
 	// TODO: what is the best context to put this in?
@@ -34,17 +34,10 @@ export class UmbSectionContext {
 	public setManifest(manifest?: ManifestSection) {
 		this.#manifestAlias.next(manifest?.alias);
 		this.#manifestPathname.next(manifest?.meta?.pathname);
-		this.#manifestLabel.next(manifest ? (manifest.meta?.label || manifest.name) : undefined);
+		this.#manifestLabel.next(manifest ? manifest.meta?.label || manifest.name : undefined);
 	}
 
-	/*
-	This was not used anywhere
-	public setActiveTree(tree: ManifestTree) {
-		this._activeTree.next(tree);
-	}
-	*/
-
-	public setActiveTreeItem(item?: ActiveTreeItemType) {
+	public setActiveTreeItem(item?: TreeItemModel) {
 		this.#activeTreeItem.next(item);
 	}
 

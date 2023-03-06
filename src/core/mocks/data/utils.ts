@@ -38,14 +38,13 @@ export const createContentTreeItem = (item: any): ContentTreeItemModel & { isTra
 };
 
 // TODO: remove isTrashed type extension when we have found a solution to trashed items
-export const createDocumentTreeItem = (item: DocumentModel): DocumentTreeItemModel & { isTrashed: boolean } => {
+export const createDocumentTreeItem = (item: DocumentTreeItemModel): DocumentTreeItemModel => {
 	return {
 		...createContentTreeItem(item),
 		noAccess: item.noAccess,
 		isProtected: item.isProtected,
 		isPublished: item.isPublished,
 		isEdited: item.isEdited,
-		isTrashed: item.isTrashed,
 	};
 };
 

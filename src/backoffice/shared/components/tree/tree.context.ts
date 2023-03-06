@@ -61,15 +61,7 @@ export class UmbTreeContextBase implements UmbTreeContext {
 		return this.repository.requestRootTreeItems();
 	}
 
-	public async requestChildrenOf(parentKey: string | null) {
-		return this.repository.requestTreeItemsOf(parentKey);
-	}
-
 	public async rootItems() {
 		return this.repository.rootTreeItems();
-	}
-
-	public async childrenOf(parentKey: string | null) {
-		return this.repository.treeItemsOf(parentKey);
 	}
 }
