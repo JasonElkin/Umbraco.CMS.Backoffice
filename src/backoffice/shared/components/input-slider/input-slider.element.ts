@@ -44,6 +44,7 @@ export class UmbInputSliderElement extends FormControlMixin(UmbLitElement) {
 
 	#renderSlider() {
 		return html`<uui-slider
+			label="range slider"
 			.min="${this.min}"
 			.max="${this.max}"
 			.step="${this.step}"
@@ -52,6 +53,7 @@ export class UmbInputSliderElement extends FormControlMixin(UmbLitElement) {
 	}
 	#renderRangeSlider() {
 		return html`<uui-range-slider
+			label="range slider"
 			.min="${this.min}"
 			.max="${this.max}"
 			.step="${this.step}"
