@@ -1,3 +1,4 @@
+import { DATA_TYPE_ENTITY_TYPE } from '..';
 import type { ManifestMenuItem } from '@umbraco-cms/models';
 
 const menuItem: ManifestMenuItem = {
@@ -9,7 +10,7 @@ const menuItem: ManifestMenuItem = {
 	meta: {
 		label: 'Data Types',
 		icon: 'umb:folder',
-		entityType: 'data-type',
+		entityType: DATA_TYPE_ENTITY_TYPE,
 		menus: ['Umb.Menu.Settings'],
 	},
 };

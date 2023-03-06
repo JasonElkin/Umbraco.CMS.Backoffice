@@ -1,3 +1,4 @@
+import { DATA_TYPE_ENTITY_TYPE } from '..';
 import { UmbSaveWorkspaceAction } from '@umbraco-cms/workspace';
 import type { ManifestWorkspace, ManifestWorkspaceAction, ManifestWorkspaceView } from '@umbraco-cms/models';
 
@@ -7,7 +8,7 @@ const workspace: ManifestWorkspace = {
 	name: 'Data Type Workspace',
 	loader: () => import('./data-type-workspace.element'),
 	meta: {
-		entityType: 'data-type',
+		entityType: DATA_TYPE_ENTITY_TYPE,
 	},
 };
 

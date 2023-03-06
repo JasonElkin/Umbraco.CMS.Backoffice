@@ -1,4 +1,5 @@
 import type { RepositoryTreeDataSource } from '../../../../../libs/repository/repository-tree-data-source.interface';
+import { DATA_TYPE_ENTITY_TYPE } from '..';
 import { UmbDataTypeTreeStore, UMB_DATA_TYPE_TREE_STORE_CONTEXT_TOKEN } from './data-type.tree.store';
 import { UmbDataTypeServerDataSource } from './sources/data-type.server.data';
 import { UmbDataTypeStore, UMB_DATA_TYPE_STORE_CONTEXT_TOKEN } from './data-type.store';
@@ -53,6 +54,10 @@ export class UmbDataTypeRepository implements UmbTreeRepository, UmbDetailReposi
 
 	// TODO: Trash
 	// TODO: Move
+
+	getEntityType() {
+		return DATA_TYPE_ENTITY_TYPE;
+	}
 
 	async requestRootTreeItems() {
 		await this.#init;

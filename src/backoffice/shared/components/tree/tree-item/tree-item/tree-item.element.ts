@@ -13,6 +13,7 @@ import { map } from 'rxjs';
 import { ManifestTreeItem } from '@umbraco-cms/extensions-registry';
 import { UmbTreeItemBase } from '../tree-item-base/tree-item-base.element';
 import { UmbTreeContext } from '../../tree.context';
+import { UmbEntityTreeItemElement } from '../entity-tree-item/entity-tree-item.element';
 
 @customElement('umb-tree-item')
 export class UmbTreeItem extends UmbLitElement {
@@ -39,6 +40,8 @@ export class UmbTreeItem extends UmbLitElement {
 	@state()
 	private _element?: unknown;
 
+	#defaultElementName = 'umb-entity-tree-item';
+
 	#observer?: UmbObserverController;
 
 	#observeTreeItemExtension() {
@@ -53,15 +56,16 @@ export class UmbTreeItem extends UmbLitElement {
 				.pipe(
 					map((treeItemManifests) => treeItemManifests.find((manifest) => manifest.meta.entityType === this.item?.type))
 				),
-			async (item) => {
-				if (!item) return;
-				this.#createElement(item);
+			(manifest) => {
+				this.#createElement(manifest);
 			}
 		);
 	}
 
-	async #createElement(item: ManifestTreeItem) {
-		const element = (await createExtensionElementOrFallback(item, 'umb-entity-tree-item')) as UmbTreeItemBase;
+	async #createElement(manifest: ManifestTreeItem | undefined) {
+		const element = manifest
+			? ((await createExtensionElement(manifest)) as UmbTreeItemBase)
+			: (document.createElement(this.#defaultElementName) as UmbEntityTreeItemElement);
 		element.item = this.item;
 		this._element = element;
 	}

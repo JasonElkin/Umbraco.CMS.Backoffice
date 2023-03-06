@@ -12,14 +12,14 @@ export class UmbMenuItem extends UmbLitElement {
 	private _key = uuidv4();
 
 	@property({ type: Object, attribute: false })
-	manifest!: ManifestMenuItem;
+	manifest?: ManifestMenuItem;
 
 	render() {
 		return html`<umb-tree-item
 			.key="${this._key}"
-			.label=${this.manifest.meta.label || this.manifest.name}
-			.icon=${this.manifest.meta.icon}
-			.entityType=${this.manifest.meta.entityType || ''}></umb-tree-item>`;
+			.label=${this.manifest?.meta.label || this.manifest?.name}
+			.icon=${this.manifest?.meta.icon}
+			.entityType=${this.manifest?.meta.entityType || ''}></umb-tree-item>`;
 	}
 }
 
