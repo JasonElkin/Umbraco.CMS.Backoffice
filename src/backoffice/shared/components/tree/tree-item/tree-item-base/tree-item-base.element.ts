@@ -93,7 +93,6 @@ export class UmbTreeItemBase extends UmbLitElement {
 	private async _observeChildren() {
 		if (!this.context?.requestChildren) return;
 
-		// TODO: add loading state
 		const { asObservable } = await this.context.requestChildren();
 		if (!asObservable) return;
 
