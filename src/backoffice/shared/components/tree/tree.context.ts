@@ -1,11 +1,14 @@
-import type { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UmbTreeRepository } from '@umbraco-cms/repository';
-import type { ManifestTree } from '@umbraco-cms/models';
-import { DeepState } from '@umbraco-cms/observable-api';
+import type { ManifestTree, ManifestTreeItem } from '@umbraco-cms/models';
+import { DeepState, ObjectState, StringState, UmbObserverController } from '@umbraco-cms/observable-api';
 import { UmbControllerHostInterface } from '@umbraco-cms/controller';
+import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
 
 export interface UmbTreeContext {
 	tree: ManifestTree;
+	treeItemManifest: Observable<ManifestTreeItem | undefined>;
+	entityType: Observable<string | undefined>;
 	readonly selectable: Observable<boolean>;
 	readonly selection: Observable<Array<string>>;
 	setSelectable(value: boolean): void;
@@ -14,8 +17,14 @@ export interface UmbTreeContext {
 }
 
 export class UmbTreeContextBase implements UmbTreeContext {
-	#host: UmbControllerHostInterface;
+	host: UmbControllerHostInterface;
 	public tree: ManifestTree;
+
+	#entityType = new StringState<undefined>(undefined);
+	public readonly entityType = this.#entityType.asObservable();
+
+	#treeItemManifest = new ObjectState<ManifestTreeItem | undefined>(undefined);
+	public readonly treeItemManifest = this.#treeItemManifest.asObservable();
 
 	#selectable = new DeepState(false);
 	public readonly selectable = this.#selectable.asObservable();
@@ -26,12 +35,13 @@ export class UmbTreeContextBase implements UmbTreeContext {
 	repository!: UmbTreeRepository;
 
 	constructor(host: UmbControllerHostInterface, tree: ManifestTree) {
-		this.#host = host;
+		this.host = host;
 		this.tree = tree;
 
 		if (this.tree.meta.repository) {
 			// TODO: should be using the right extension and the createExtensionClass method.
-			this.repository = new this.tree.meta.repository(this.#host) as any;
+			this.repository = new this.tree.meta.repository(this.host) as any;
+			this.#entityType.next(this.repository.getEntityType());
 		}
 	}
 

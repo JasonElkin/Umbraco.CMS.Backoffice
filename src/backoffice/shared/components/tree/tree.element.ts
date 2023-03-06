@@ -8,12 +8,12 @@ import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
 import { UmbLitElement } from '@umbraco-cms/element';
 import { TreeItemModel } from '@umbraco-cms/backend-api';
 
-import './tree-item/tree-item-base/tree-item-base.element';
-import './tree-item/entity-tree-item/entity-tree-item.element';
 import './context-menu/tree-context-menu-page.service';
 import './context-menu/tree-context-menu.service';
 
-import '../../../documents/documents/tree/item/document-tree-item.element';
+import './tree-item/tree-item/tree-item.element';
+import './tree-item/tree-item-base/tree-item-base.element';
+import './tree-item/entity-tree-item/entity-tree-item.element';
 
 @customElement('umb-tree')
 export class UmbTreeElement extends UmbLitElement {
@@ -84,8 +84,8 @@ export class UmbTreeElement extends UmbLitElement {
 		this.#treeContext.setSelectable(this.selectable);
 		this.#treeContext.setSelection(this.selection);
 
-		this.#observeSelection();
 		this.#observeTreeRoot();
+		this.#observeSelection();
 
 		this.provideContext('umbTreeContext', this.#treeContext);
 	}
@@ -115,7 +115,7 @@ export class UmbTreeElement extends UmbLitElement {
 			${repeat(
 				this._items,
 				(item) => item.name,
-				(item) => html`<umb-entity-tree-item .item=${item}></umb-entity-tree-item>`
+				(item) => html`<umb-tree-item .item=${item}></umb-tree-item>`
 			)}
 		`;
 	}

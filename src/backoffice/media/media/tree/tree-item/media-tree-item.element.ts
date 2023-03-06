@@ -1,12 +1,12 @@
 import { css, html, nothing } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement, property } from 'lit/decorators.js';
-import { UmbDocumentTreeItemContext } from './document-tree-item.context';
+import { UmbDocumentTreeItemContext } from './media-tree-item.context';
 import { UmbLitElement } from '@umbraco-cms/element';
 import { DocumentTreeItemModel } from '@umbraco-cms/backend-api';
 
-@customElement('umb-document-tree-item')
-export class UmbDocumentTreeItemElement extends UmbLitElement {
+@customElement('umb-media-tree-item')
+export class UmbMediaTreeItemElement extends UmbLitElement {
 	static styles = [
 		UUITextStyles,
 		css`
@@ -33,19 +33,16 @@ export class UmbDocumentTreeItemElement extends UmbLitElement {
 		if (!this.item) return nothing;
 		return html`
 			<umb-tree-item-base .item=${this.item} .context=${new UmbDocumentTreeItemContext(this, this.item)}>
-				<div id="label" slot="label">
-					<span id="status"></span>
-					<span>${this.item?.name}</span>
-				</div>
+				<span slot="label">MEDIA: ${this.item?.name}</span>
 			</umb-tree-item-base>
 		`;
 	}
 }
 
-export default UmbDocumentTreeItemElement;
+export default UmbMediaTreeItemElement;
 
 declare global {
 	interface HTMLElementTagNameMap {
-		'umb-document-tree-item': UmbDocumentTreeItemElement;
+		'umb-media-tree-item': UmbMediaTreeItemElement;
 	}
 }

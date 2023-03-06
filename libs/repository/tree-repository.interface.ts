@@ -1,7 +1,8 @@
 import type { Observable } from 'rxjs';
+import { UmbRepository } from './repository.interface';
 import { EntityTreeItemModel, PagedEntityTreeItemModel, ProblemDetailsModel } from '@umbraco-cms/backend-api';
 
-export interface UmbTreeRepository {
+export interface UmbTreeRepository extends UmbRepository {
 	requestRootTreeItems: () => Promise<{
 		data: PagedEntityTreeItemModel | undefined;
 		error: ProblemDetailsModel | undefined;

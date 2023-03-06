@@ -52,6 +52,10 @@ export class UmbMediaRepository implements UmbTreeRepository, UmbDetailRepositor
 		]);
 	}
 
+	getEntityType() {
+		return 'media';
+	}
+
 	async requestRootTreeItems() {
 		await this.#init;
 

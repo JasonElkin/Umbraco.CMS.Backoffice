@@ -17,7 +17,7 @@ const treeItem: ManifestTreeItem = {
 	type: 'treeItem',
 	alias: 'Umb.TreeItem.Media',
 	name: 'Media Tree Item',
-	loader: () => import('./item/media-tree-item.element'),
+	loader: () => import('./tree-item/media-tree-item.element'),
 	meta: {
 		entityType: MEDIA_ENTITY_TYPE,
 	},

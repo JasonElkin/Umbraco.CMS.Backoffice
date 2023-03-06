@@ -5,11 +5,12 @@ import {
 } from '../../../section/section-sidebar/section-sidebar.context';
 import { UmbSectionContext, UMB_SECTION_CONTEXT_TOKEN } from '../../../section/section.context';
 import { UmbTreeContextBase } from '../../tree.context';
-import { DeepState, StringState, UmbObserverController } from '@umbraco-cms/observable-api';
+import { DeepState, ObjectState, StringState, UmbObserverController } from '@umbraco-cms/observable-api';
 import { UmbControllerHostInterface } from '@umbraco-cms/controller';
 import { UmbContextConsumerController } from '@umbraco-cms/context-api';
 import { TreeItemModel } from '@umbraco-cms/backend-api';
 import { umbExtensionsRegistry } from '@umbraco-cms/extensions-api';
+import { ManifestTreeItem } from '@umbraco-cms/extensions-registry';
 
 export class UmbTreeItemContextBase<T extends TreeItemModel = TreeItemModel> {
 	public host: UmbControllerHostInterface;
@@ -90,22 +91,6 @@ export class UmbTreeItemContextBase<T extends TreeItemModel = TreeItemModel> {
 		this.treeContext?.deselect(this.unique);
 	}
 
-	#observeTreeItemActions() {
-		// TODO: Stop previous observation, currently we can do this from the UmbElementMixin as its a new subscription when Actions or entityType has changed.
-		// Solution: store the current observation controller and if it existing then destroy it.
-		// TODO: as long as a tree consist of one entity type we don't have to observe this every time a new tree item is created.
-		// Solution: move this to the tree context and observe it once.
-		new UmbObserverController(
-			this.host,
-			umbExtensionsRegistry
-				.extensionsOfType('entityAction')
-				.pipe(map((actions) => actions.filter((action) => action.meta.entityType === this.treeItem.type))),
-			(actions) => {
-				this.#hasActions.next(actions.length > 0);
-			}
-		);
-	}
-
 	#observeIsSelectable() {
 		if (!this.treeContext) return;
 		new UmbObserverController(this.host, this.treeContext.selectable, (value) => this.#isSelectable.next(value));
@@ -131,6 +116,22 @@ export class UmbTreeItemContextBase<T extends TreeItemModel = TreeItemModel> {
 			const path = this.#constructPath(pathname, this.type, this.unique);
 			this.#path.next(path);
 		});
+	}
+
+	#observeTreeItemActions() {
+		// TODO: Stop previous observation, currently we can do this from the UmbElementMixin as its a new subscription when Actions or entityType has changed.
+		// Solution: store the current observation controller and if it existing then destroy it.
+		// TODO: as long as a tree consist of one entity type we don't have to observe this every time a new tree item is created.
+		// Solution: move this to the tree context and observe it once.
+		new UmbObserverController(
+			this.host,
+			umbExtensionsRegistry
+				.extensionsOfType('entityAction')
+				.pipe(map((actions) => actions.filter((action) => action.meta.entityType === this.treeItem.type))),
+			(actions) => {
+				this.#hasActions.next(actions.length > 0);
+			}
+		);
 	}
 
 	#constructPath(pathname: string, entityType: string, key: string) {

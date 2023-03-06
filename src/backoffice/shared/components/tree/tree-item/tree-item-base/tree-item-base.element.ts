@@ -116,10 +116,14 @@ export class UmbTreeItemBase extends UmbLitElement {
 				.label="${this.item?.name}"
 				href="${ifDefined(this._href)}"
 				?active=${this._isActive}>
-				${this.#renderIcon()} ${this.#renderContextMenuButton()}${this.#renderChildItems()}
+				${this.#renderIcon()} ${this.#renderLabel()} ${this.#renderContextMenuButton()}${this.#renderChildItems()}
 				<slot></slot>
 			</uui-menu-item>
 		`;
+	}
+
+	#renderLabel() {
+		return html` <slot name="label" slot="label"></slot>`;
 	}
 
 	#renderIcon() {
@@ -132,7 +136,7 @@ export class UmbTreeItemBase extends UmbLitElement {
 				? repeat(
 						this._childItems,
 						(item) => item.name,
-						(item) => html`<umb-tree-item-base .item=${item}></umb-tree-item-base>`
+						(item) => html`<umb-tree-item .item=${item}></umb-tree-item>`
 				  )
 				: ''}
 		`;
