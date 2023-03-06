@@ -1,23 +1,23 @@
 import { UmbDocumentRepository } from '../repository/document.repository';
 import { DOCUMENT_ENTITY_TYPE } from '..';
-import type { ManifestTree, ManifestTreeItemLabel } from '@umbraco-cms/models';
+import type { ManifestTree, ManifestTreeItem } from '@umbraco-cms/models';
 
-const treeAlias = 'Umb.Tree.Documents';
+export const DOCUMENT_TREE_ALIAS = 'Umb.Tree.Document';
 
 const tree: ManifestTree = {
 	type: 'tree',
-	alias: treeAlias,
-	name: 'Documents Tree',
+	alias: DOCUMENT_TREE_ALIAS,
+	name: 'Document Tree',
 	meta: {
 		repository: UmbDocumentRepository, // TODO: use alias instead of class
 	},
 };
 
-const treeItem: ManifestTreeItemLabel = {
-	type: 'treeItemLabel',
+const treeItem: ManifestTreeItem = {
+	type: 'treeItem',
 	alias: 'Umb.TreeItem.Document',
 	name: 'Document Tree Item',
-	loader: () => import('./item-label/document-tree-item-label.element'),
+	loader: () => import('./item/document-tree-item.element'),
 	meta: {
 		entityType: DOCUMENT_ENTITY_TYPE,
 	},

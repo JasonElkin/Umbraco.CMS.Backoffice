@@ -6,6 +6,7 @@ import { UUIModalSidebarSize } from '@umbraco-ui/uui-modal-sidebar';
 import { UmbModalLayoutElement } from '../modal-layout.element';
 import { UmbTreeElement } from '../../../../backoffice/shared/components/tree/tree.element';
 import { buildUdi, getKeyFromUdi } from '@umbraco-cms/utils';
+import { DOCUMENT_TREE_ALIAS } from 'src/backoffice/documents/documents/tree/manifests';
 
 export interface UmbModalLinkPickerData {
 	link: LinkPickerData;
@@ -200,7 +201,7 @@ export class UmbModalLayoutLinkPickerElement extends UmbModalLayoutElement<UmbMo
 		return html`<uui-label for="search-input">Link to page</uui-label>
 			<uui-input id="search-input" placeholder="Type to search" label="Type to search"></uui-input>
 			<umb-tree
-				alias="Umb.Tree.Documents"
+				alias=${DOCUMENT_TREE_ALIAS}
 				@selected=${(event: CustomEvent) => this._handleSelectionChange(event, 'document')}
 				.selection=${[this._selectedKey ?? '']}
 				selectable></umb-tree>

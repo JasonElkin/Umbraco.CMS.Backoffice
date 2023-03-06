@@ -15,7 +15,7 @@ import './context-menu/tree-context-menu-page.service';
 import './context-menu/tree-context-menu.service';
 import './action/tree-item-action-extension.element';
 
-import '../../../documents/documents/tree/item-label/document-tree-item-label.element';
+import '../../../documents/documents/tree/item/document-tree-item.element';
 
 @customElement('umb-tree')
 export class UmbTreeElement extends UmbLitElement {

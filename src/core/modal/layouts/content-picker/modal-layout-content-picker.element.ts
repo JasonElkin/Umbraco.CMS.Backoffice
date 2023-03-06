@@ -9,6 +9,7 @@ export interface UmbModalContentPickerData {
 }
 
 import { UmbTreeElement } from '../../../../backoffice/shared/components/tree/tree.element';
+import { DOCUMENT_TREE_ALIAS } from 'src/backoffice/documents/documents/tree/manifests';
 
 // TODO: make use of UmbPickerLayoutBase
 @customElement('umb-modal-layout-content-picker')
@@ -82,7 +83,7 @@ export class UmbModalLayoutContentPickerElement extends UmbModalLayoutElement<Um
 					<uui-input></uui-input>
 					<hr />
 					<umb-tree
-						alias="Umb.Tree.Documents"
+						alias=${DOCUMENT_TREE_ALIAS}
 						@selected=${this._handleSelectionChange}
 						.selection=${this._selection}
 						selectable></umb-tree>
