@@ -80,7 +80,7 @@ export class UmbTreeItemContextBase<T extends TreeItemModel = TreeItemModel> {
 
 	public toggleContextMenu() {
 		this.#sectionContext?.setActiveTreeItem(this.treeItem);
-		this.#sectionSidebarContext?.toggleContextMenu(this.type, this.unique);
+		this.#sectionSidebarContext?.toggleActionsMenu(this.type, this.unique);
 	}
 
 	public select() {

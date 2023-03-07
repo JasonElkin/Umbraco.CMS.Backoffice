@@ -21,14 +21,15 @@ export class UmbDataTypesMenuItemElement extends UmbLitElement {
 	// TODO: can we make this reusable?
 	render() {
 		return html`
-			<uui-menu-item
+			<umb-menu-item
 				label="Data Types"
+				icon="umb:folder"
+				entity-type="data-type-root"
 				@show-children=${this._onShowChildren}
 				@hide-children=${this._onHideChildren}
 				has-children>
-				<uui-icon slot="icon" name="umb:folder"></uui-icon>
 				${this._renderTree ? html`<umb-tree alias=${DATA_TYPE_TREE_ALIAS}></umb-tree>` : nothing}
-			</uui-menu-item>
+			</umb-menu-item>
 		`;
 	}
 }
