@@ -1,6 +1,6 @@
 import { DATA_TYPE_REPOSITORY_ALIAS } from '../repository/manifests';
 import { DATA_TYPE_ENTITY_TYPE } from '..';
-import { UmbCreateDataTypeEntityAction } from './create.action';
+import { UmbCreateDataTypeEntityAction } from './create/create.action';
 import { ManifestEntityAction } from '@umbraco-cms/extensions-registry';
 import { UmbDeleteEntityAction } from '@umbraco-cms/entity-action';
 
@@ -12,6 +12,20 @@ const entityActions: Array<ManifestEntityAction> = [
 		weight: 1000,
 		meta: {
 			entityType: DATA_TYPE_ENTITY_TYPE,
+			icon: 'umb:add',
+			label: 'Create',
+			repositoryAlias: DATA_TYPE_REPOSITORY_ALIAS,
+			api: UmbCreateDataTypeEntityAction,
+		},
+	},
+	// TODO: allow multiple entityTypes in the meta
+	{
+		type: 'entityAction',
+		alias: 'Umb.EntityAction.DataTypeRoot.Create',
+		name: 'Create Data Type Entity Action',
+		weight: 1000,
+		meta: {
+			entityType: 'data-type-root',
 			icon: 'umb:add',
 			label: 'Create',
 			repositoryAlias: DATA_TYPE_REPOSITORY_ALIAS,
