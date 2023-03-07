@@ -84,6 +84,7 @@ export class UmbMenuItemElement extends UmbLitElement {
 			.label=${this.label || this.manifest?.meta.label || this.manifest?.name}
 			?has-children=${this.hasChildren}>
 			${this.#renderIcon()}${this.#renderContextMenuButton()}
+			<slot></slot>
 		</uui-menu-item>`;
 	}
 
