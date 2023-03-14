@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { UUITextStyles } from '@umbraco-ui/uui-css/lib';
 import { customElement } from 'lit/decorators.js';
-import { UmbModalLayoutElement } from '@umbraco-cms/modal';
+import { UmbModalBaseElement } from '@umbraco-cms/modal';
 
 export interface UmbCreateDataTypeModalData {
 	unique: string | null;
@@ -12,16 +12,16 @@ export interface UmbCreateDataTypeModalResultData {
 }
 
 @customElement('umb-create-data-type-modal')
-export class UmbCreateDataTypeModalElement extends UmbModalLayoutElement<UmbCreateDataTypeModalData> {
+export class UmbCreateDataTypeModalElement extends UmbModalBaseElement<UmbCreateDataTypeModalData> {
 	static styles = [UUITextStyles];
 
 	private _handleCancel() {
-		this.modalHandler?.close();
+		this.modalHandler?.reject();
 	}
 
 	#createNewDataType(event: PointerEvent) {
 		event.stopPropagation();
-		this.modalHandler?.close();
+		this.modalHandler?.submit();
 	}
 
 	#createFolder() {
